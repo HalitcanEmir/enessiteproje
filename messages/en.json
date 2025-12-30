@@ -28,6 +28,9 @@
   "contact": {
     "title": "Contact",
     "description": "Get in touch with us"
+  },
+  "hero": {
+    "viewProject": "View Project"
   }
 }
 

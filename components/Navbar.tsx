@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
@@ -29,21 +30,23 @@ export default function Navbar() {
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href={`/${locale}`} className="flex items-center">
-            <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">E</span>
-              </div>
-              <span className="text-xl font-bold text-secondary hidden sm:block">
-                Company Name
-              </span>
+        <div className="flex items-center justify-between h-16 md:h-20">
+          {/* Logo - Centered */}
+          <Link href={`/${locale}`} className="flex items-center justify-center flex-1 md:flex-none md:justify-start">
+            <div className="flex items-center justify-center">
+              <Image
+                src="/images/logo.png"
+                alt="Company Logo"
+                width={250}
+                height={100}
+                className="h-12 sm:h-14 md:h-16 w-auto object-contain"
+                priority
+              />
             </div>
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-8 flex-1 justify-end">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
               return (

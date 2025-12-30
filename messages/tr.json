@@ -28,6 +28,9 @@
   "contact": {
     "title": "İletişim",
     "description": "Bizimle iletişime geçin"
+  },
+  "hero": {
+    "viewProject": "Projeyi İncele"
   }
 }
 

@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
 import { motion } from 'framer-motion';
 
@@ -22,11 +23,14 @@ export default function Footer() {
             transition={{ duration: 0.5 }}
           >
             <h3 className="text-lg font-semibold mb-4">{t('company')}</h3>
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">E</span>
-              </div>
-              <span className="text-xl font-bold">Company Name</span>
+            <div className="mb-4">
+              <Image
+                src="/images/enessitelogo.jpeg"
+                alt="Company Logo"
+                width={180}
+                height={60}
+                className="h-12 w-auto object-contain"
+              />
             </div>
             <p className="text-gray-400 text-sm">
               Electrical and electronic solutions for corporate projects
