@@ -1,0 +1,33 @@
+{
+  "nav": {
+    "home": "Ana Sayfa",
+    "about": "Hakkımızda",
+    "services": "Hizmetlerimiz",
+    "projects": "Projelerimiz",
+    "contact": "İletişim"
+  },
+  "footer": {
+    "company": "Şirket",
+    "services": "Hizmetler",
+    "contact": "İletişim",
+    "rights": "Tüm hakları saklıdır."
+  },
+  "home": {
+    "title": "Elektrik ve Elektronik Çözümlerinde Güvenilir Ortağınız",
+    "subtitle": "Kurumsal projeler, saha işleri, uygulama ve bakım hizmetleri",
+    "cta": "Hizmetlerimizi Keşfedin"
+  },
+  "about": {
+    "title": "Hakkımızda",
+    "description": "Elektrik-elektronik sektöründe uzman ekibimizle hizmet veriyoruz."
+  },
+  "services": {
+    "title": "Hizmetlerimiz",
+    "description": "Geniş hizmet yelpazemizle ihtiyaçlarınıza çözüm sunuyoruz."
+  },
+  "contact": {
+    "title": "İletişim",
+    "description": "Bizimle iletişime geçin"
+  }
+}
+
