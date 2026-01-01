@@ -4,13 +4,29 @@
     "about": "Hakkımızda",
     "services": "Hizmetlerimiz",
     "projects": "Projelerimiz",
-    "contact": "İletişim"
+    "references": "Referanslar",
+    "contact": "İletişim",
+    "getQuote": "Teklif Al",
+    "companyTagline": "Elektrik & Elektronik Çözümleri"
   },
   "footer": {
     "company": "Şirket",
-    "services": "Hizmetler",
+    "quickLinks": "Hızlı Linkler",
     "contact": "İletişim",
-    "rights": "Tüm hakları saklıdır."
+    "slogan": "Elektrik ve elektronik sektöründe güvenilir çözüm ortağınız. Kurumsal projeler, saha işleri ve bakım hizmetlerinde uzman ekibimizle yanınızdayız.",
+    "getQuote": "Teklif Al",
+    "workingHours": "Çalışma Saatleri",
+    "workingHoursValue": "Pazartesi - Cuma: 09:00 - 18:00",
+    "email": "E-posta",
+    "phone": "Telefon",
+    "address": "Adres",
+    "addressValue": "İstanbul, Türkiye",
+    "copyright": "Tüm hakları saklıdır.",
+    "kvkk": "KVKK",
+    "privacy": "Gizlilik",
+    "cookies": "Çerez Politikası",
+    "sitemap": "Site Haritası",
+    "scrollTop": "Yukarı Çık"
   },
   "home": {
     "title": "Elektrik ve Elektronik Çözümlerinde Güvenilir Ortağınız",
@@ -31,6 +47,16 @@
   },
   "hero": {
     "viewProject": "Projeyi İncele"
+  },
+  "projectsSection": {
+    "title": "Projelerimiz",
+    "description": "Elektrik & Elektronik Taahhüt projelerimizden seçkiler",
+    "viewAll": "Tüm projeleri gör →",
+    "viewDetails": "Detayları gör →"
+  },
+  "references": {
+    "title": "Referanslarımız",
+    "description": "Birlikte çalıştığımız değerli kurum ve kuruluşlar"
   }
 }
 

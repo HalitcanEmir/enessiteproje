@@ -4,13 +4,29 @@
     "about": "About Us",
     "services": "Services",
     "projects": "Projects",
-    "contact": "Contact"
+    "references": "References",
+    "contact": "Contact",
+    "getQuote": "Get Quote",
+    "companyTagline": "Electrical & Electronic Solutions"
   },
   "footer": {
     "company": "Company",
-    "services": "Services",
+    "quickLinks": "Quick Links",
     "contact": "Contact",
-    "rights": "All rights reserved."
+    "slogan": "Your trusted partner in electrical and electronics. Our expert team is with you in corporate projects, field work and maintenance services.",
+    "getQuote": "Get Quote",
+    "workingHours": "Working Hours",
+    "workingHoursValue": "Monday - Friday: 09:00 - 18:00",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "addressValue": "Istanbul, Turkey",
+    "copyright": "All rights reserved.",
+    "kvkk": "Privacy",
+    "privacy": "Privacy",
+    "cookies": "Cookie Policy",
+    "sitemap": "Sitemap",
+    "scrollTop": "Scroll to Top"
   },
   "home": {
     "title": "Your Trusted Partner in Electrical and Electronic Solutions",
@@ -31,6 +47,16 @@
   },
   "hero": {
     "viewProject": "View Project"
+  },
+  "projectsSection": {
+    "title": "Our Projects",
+    "description": "A selection of our electrical & electronics contracting projects",
+    "viewAll": "View all projects →",
+    "viewDetails": "View details →"
+  },
+  "references": {
+    "title": "Our References",
+    "description": "Valued institutions and organizations we work with"
   }
 }
 

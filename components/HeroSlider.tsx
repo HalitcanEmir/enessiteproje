@@ -94,22 +94,22 @@ export default function HeroSlider({ projects }: HeroSliderProps) {
 
   const variants = {
     enter: (direction: number) => ({
-      opacity: 0,
-      x: direction > 0 ? 20 : -20,
+      opacity: 0.3,
+      x: direction > 0 ? 50 : -50,
     }),
     center: {
       opacity: 1,
       x: 0,
     },
     exit: (direction: number) => ({
-      opacity: 0,
-      x: direction > 0 ? -20 : 20,
+      opacity: 0.3,
+      x: direction > 0 ? -50 : 50,
     }),
   };
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      <AnimatePresence mode="wait" custom={direction}>
+      <AnimatePresence mode="sync" custom={direction}>
         <motion.div
           key={currentIndex}
           custom={direction}
@@ -118,8 +118,8 @@ export default function HeroSlider({ projects }: HeroSliderProps) {
           animate="center"
           exit="exit"
           transition={{
-            opacity: { duration: 0.8 },
-            x: { duration: 0.8, ease: 'easeInOut' },
+            opacity: { duration: 0.6 },
+            x: { duration: 0.7, ease: [0.4, 0, 0.2, 1] },
           }}
           className="absolute inset-0"
           onTouchStart={handleTouchStart}

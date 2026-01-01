@@ -2,14 +2,6 @@
 
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
-  const isTr = locale === 'tr';
-
-  return {
-    title: isTr ? 'Hakkımızda' : 'About Us',
-    description: isTr
-      ? 'Elektrik-elektronik sektöründe uzman ekibimizle hizmet veriyoruz.'
-      : 'We serve with our expert team in the electrical-electronics sector.',
-}
 
 export default function AboutPage() {
   const t = useTranslations('about');
@@ -45,4 +37,3 @@ export default function AboutPage() {
     </div>
   );
 }
-
