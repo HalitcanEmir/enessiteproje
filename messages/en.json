@@ -35,15 +35,74 @@
   },
   "about": {
     "title": "About Us",
-    "description": "We serve with our expert team in the electrical-electronics sector."
+    "description": "We serve with our expert team in the electrical-electronics sector.",
+    "heading": "Innovative Power Born from Experience",
+    "subtitle": "Experience, vision, and sustainable solutions in electrical and electronics engineering.",
+    "paragraph1": "As [Company Name], we have combined our personal experience and expertise accumulated over many years in the sector under a dynamic and innovative corporate structure.",
+    "paragraph2": "As a team that has come from within the industry, experienced the field firsthand, and mastered every stage of projects, we are now making our mark on the future with our own vision.",
+    "paragraph3": "Our founding purpose is to deliver classic engineering services integrated with today's technology and pace. We blend the discipline we have inherited from the past with academic knowledge and modern design tools; producing flawless, applicable, and sustainable solutions in the field of electrical and electronics engineering.",
+    "paragraph4": "For us, every project is a new success story where we prove our experience through innovation.",
+    "value1Title": "Experience-Focused Approach",
+    "value2Title": "Applicable Engineering",
+    "value3Title": "Sustainable Solutions"
   },
   "services": {
     "title": "Our Services",
-    "description": "We offer solutions to your needs with our wide range of services."
+    "description": "We offer solutions to your needs with our wide range of services.",
+    "subtitle": "We deliver solutions tailored to your needs with our wide range of services.",
+    "engineering": {
+      "title": "Engineering",
+      "description": "Our design and technical production capabilities; from concept to implementation, end to end.",
+      "items": [
+        "Electrical-Electronic Project Design and Drawing",
+        "LV/HV Energy Distribution Systems",
+        "Weak Current Systems Design",
+        "Lighting and Energy Efficiency Calculations"
+      ]
+    },
+    "consultancy": {
+      "title": "Consultancy",
+      "description": "Supervision, compliance and process management; safe progress in projects.",
+      "items": [
+        "Project Supervision and Control Services",
+        "Regulatory Compliance Consulting",
+        "Technical Process Management",
+        "Quality Assurance and Testing Services"
+      ]
+    },
+    "advisory": {
+      "title": "Advisory",
+      "description": "Feasibility, cost and system selection; for the right investment decisions.",
+      "items": [
+        "Technical Feasibility Studies",
+        "Cost Analysis and Budget Planning",
+        "System Selection and Installation Consulting",
+        "Energy Efficiency and Optimization Recommendations"
+      ]
+    }
   },
   "contact": {
     "title": "Contact",
-    "description": "Get in touch with us"
+    "description": "Get in touch with us",
+    "heading": "Contact",
+    "subtitle": "Get in touch quickly for your project, we will respond as soon as possible.",
+    "name": "Full Name",
+    "company": "Company",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "sendButton": "Send Message",
+    "sending": "Sending...",
+    "phoneLabel": "Phone",
+    "whatsappLabel": "WhatsApp",
+    "quickContact": "Quick Contact",
+    "callButton": "Call",
+    "whatsappButton": "WhatsApp",
+    "mapTitle": "Location",
+    "mapButton": "View on Map",
+    "successTitle": "Message received",
+    "successMessage": "We will get back to you as soon as possible.",
+    "errorMessage": "An error occurred. Please try again."
   },
   "hero": {
     "viewProject": "View Project"
@@ -53,6 +112,20 @@
     "description": "A selection of our electrical & electronics contracting projects",
     "viewAll": "View all projects →",
     "viewDetails": "View details →"
+  },
+  "projects": {
+    "title": "Our Projects",
+    "subtitle": "A selection of our completed and ongoing projects.",
+    "filters": {
+      "all": "All Projects",
+      "ongoing": "Ongoing",
+      "featured": "Featured",
+      "completed": "Completed"
+    },
+    "emptyState": {
+      "title": "No projects found in this category",
+      "description": "You can view projects by selecting a different category."
+    }
   },
   "references": {
     "title": "Our References",

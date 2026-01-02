@@ -35,15 +35,74 @@
   },
   "about": {
     "title": "Hakkımızda",
-    "description": "Elektrik-elektronik sektöründe uzman ekibimizle hizmet veriyoruz."
+    "description": "Elektrik-elektronik sektöründe uzman ekibimizle hizmet veriyoruz.",
+    "heading": "Tecrübeden Doğan Yenilikçi Güç",
+    "subtitle": "Elektrik ve elektronik mühendisliğinde tecrübe, vizyon ve sürdürülebilir çözümler.",
+    "paragraph1": "[Şirket Adı] olarak, sektörde uzun yıllara dayanan şahsi tecrübe ve birikimlerimizi, dinamik ve yenilikçi bir kurumsal çatı altında birleştirdik.",
+    "paragraph2": "Sektörün içinden gelen, sahanın tozunu yutmuş ve projenin her aşamasına hâkim bir ekip olarak; artık kendi vizyonumuzla geleceğe imza atıyoruz.",
+    "paragraph3": "Kuruluş amacımız; klasikleşmiş mühendislik hizmetlerini, günümüzün teknolojisi ve hızına entegre ederek sunmaktır. Geçmişten aldığımız disiplini, akademik bilgi ve modern tasarım araçlarıyla harmanlıyor; elektrik-elektronik mühendisliği alanında hatasız, uygulanabilir ve sürdürülebilir çözümler üretiyoruz.",
+    "paragraph4": "Bizim için her proje, tecrübemizi inovasyonla kanıtladığımız yeni bir başarı hikâyesidir.",
+    "value1Title": "Tecrübe Odaklı Yaklaşım",
+    "value2Title": "Uygulanabilir Mühendislik",
+    "value3Title": "Sürdürülebilir Çözümler"
   },
   "services": {
     "title": "Hizmetlerimiz",
-    "description": "Geniş hizmet yelpazemizle ihtiyaçlarınıza çözüm sunuyoruz."
+    "description": "Geniş hizmet yelpazemizle ihtiyaçlarınıza çözüm sunuyoruz.",
+    "subtitle": "Geniş hizmet yelpazemizle ihtiyaçlarınıza çözüm sunuyoruz.",
+    "engineering": {
+      "title": "Mühendislik Hizmetleri",
+      "description": "Tasarım ve teknik üretim gücümüz; fikirden uygulama projesine uçtan uca.",
+      "items": [
+        "Elektrik-Elektronik Proje Tasarımı ve Çizimi",
+        "AG/OG Enerji Dağıtım Sistemleri",
+        "Zayıf Akım Sistemleri Tasarımı",
+        "Aydınlatma ve Enerji Verimliliği Hesapları"
+      ]
+    },
+    "consultancy": {
+      "title": "Müşavirlik Hizmetleri",
+      "description": "Denetim, mevzuat ve süreç yönetimi; projelerde güvenli ilerleyiş.",
+      "items": [
+        "Proje Denetim ve Kontrol Hizmetleri",
+        "Mevzuat Uyumluluk Danışmanlığı",
+        "Teknik Süreç Yönetimi",
+        "Kalite Güvence ve Test Hizmetleri"
+      ]
+    },
+    "advisory": {
+      "title": "Danışmanlık Hizmetleri",
+      "description": "Fizibilite, maliyet ve sistem seçimi; doğru yatırım kararları için.",
+      "items": [
+        "Teknik Fizibilite Çalışmaları",
+        "Maliyet Analizi ve Bütçe Planlama",
+        "Sistem Seçimi ve Kurulum Danışmanlığı",
+        "Enerji Verimliliği ve Optimizasyon Önerileri"
+      ]
+    }
   },
   "contact": {
     "title": "İletişim",
-    "description": "Bizimle iletişime geçin"
+    "description": "Bizimle iletişime geçin",
+    "heading": "İletişim",
+    "subtitle": "Projeniz için hızlıca iletişime geçin, en kısa sürede dönüş yapalım.",
+    "name": "Ad Soyad",
+    "company": "Firma",
+    "email": "E-posta",
+    "phone": "Telefon",
+    "message": "Mesaj",
+    "sendButton": "Mesaj Gönder",
+    "sending": "Gönderiliyor...",
+    "phoneLabel": "Telefon",
+    "whatsappLabel": "WhatsApp",
+    "quickContact": "Hızlı İletişim",
+    "callButton": "Telefonla Ara",
+    "whatsappButton": "WhatsApp",
+    "mapTitle": "Konum",
+    "mapButton": "Haritada Gör",
+    "successTitle": "Mesajınız alındı",
+    "successMessage": "En kısa sürede dönüş yapacağız.",
+    "errorMessage": "Bir hata oluştu. Lütfen tekrar deneyin."
   },
   "hero": {
     "viewProject": "Projeyi İncele"
@@ -53,6 +112,20 @@
     "description": "Elektrik & Elektronik Taahhüt projelerimizden seçkiler",
     "viewAll": "Tüm projeleri gör →",
     "viewDetails": "Detayları gör →"
+  },
+  "projects": {
+    "title": "Projelerimiz",
+    "subtitle": "Tamamladığımız ve devam eden projelerimizden seçkiler.",
+    "filters": {
+      "all": "Tüm Projeler",
+      "ongoing": "Devam Eden Projeler",
+      "featured": "Bizim Seçtiklerimiz",
+      "completed": "Tamamlanan Projeler"
+    },
+    "emptyState": {
+      "title": "Bu kategoride proje bulunamadı",
+      "description": "Farklı bir kategori seçerek projeleri görüntüleyebilirsiniz."
+    }
   },
   "references": {
     "title": "Referanslarımız",

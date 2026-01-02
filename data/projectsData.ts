@@ -18,6 +18,8 @@ export interface ProjectCard {
     tr: string;
     en: string;
   };
+  status: 'ongoing' | 'completed';
+  featured: boolean;
 }
 
 export const projectsData: ProjectCard[] = [
@@ -41,6 +43,8 @@ export const projectsData: ProjectCard[] = [
       tr: 'Kurumsal elektrik altyapı projesi görseli',
       en: 'Corporate electrical infrastructure project image',
     },
+    status: 'completed',
+    featured: true,
   },
   {
     slug: 'industrial-system-integration',
@@ -62,6 +66,8 @@ export const projectsData: ProjectCard[] = [
       tr: 'Endüstriyel sistem entegrasyonu projesi görseli',
       en: 'Industrial system integration project image',
     },
+    status: 'ongoing',
+    featured: true,
   },
   {
     slug: 'smart-building-automation',
@@ -83,6 +89,8 @@ export const projectsData: ProjectCard[] = [
       tr: 'Akıllı bina otomasyon projesi görseli',
       en: 'Smart building automation project image',
     },
+    status: 'completed',
+    featured: true,
   },
   {
     slug: 'data-center-electrical',
@@ -104,6 +112,8 @@ export const projectsData: ProjectCard[] = [
       tr: 'Veri merkezi elektrik projesi görseli',
       en: 'Data center electrical project image',
     },
+    status: 'completed',
+    featured: false,
   },
   {
     slug: 'hospital-electronic-systems',
@@ -125,6 +135,8 @@ export const projectsData: ProjectCard[] = [
       tr: 'Hastane elektronik sistemleri projesi görseli',
       en: 'Hospital electronic systems project image',
     },
+    status: 'ongoing',
+    featured: false,
   },
   {
     slug: 'shopping-mall-electrical',
@@ -146,6 +158,8 @@ export const projectsData: ProjectCard[] = [
       tr: 'AVM elektrik taahhüt projesi görseli',
       en: 'Shopping mall electrical contracting project image',
     },
+    status: 'completed',
+    featured: false,
   },
 ];
 

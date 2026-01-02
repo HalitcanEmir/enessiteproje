@@ -70,15 +70,39 @@ export default function Navbar() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full">
           <div className="flex items-center justify-between h-full">
             {/* Logo - Left */}
-            <Link href={`/${locale}`} className="flex items-center flex-shrink-0">
-              <Image
-                src="/images/logo.png"
-                alt="Company Logo"
-                width={120}
-                height={40}
-                className="h-10 object-contain"
-                priority
-              />
+            <Link 
+              href={`/${locale}`} 
+              className="flex items-center gap-3 flex-shrink-0"
+            >
+              <div
+                className={`flex items-center justify-center backdrop-blur-sm border rounded-xl shadow-sm transition-all duration-200 ${
+                  isScrolled
+                    ? 'h-[54px] w-[180px] px-3 bg-white/[0.03] border-white/5'
+                    : 'h-[58px] w-[200px] px-4 bg-white/5 border-white/10'
+                }`}
+              >
+                <Image
+                  src="/images/logo.png"
+                  alt="Company Logo"
+                  width={180}
+                  height={58}
+                  className={`object-contain transition-all duration-200 ${
+                    isScrolled ? 'h-[46px] w-auto' : 'h-[50px] w-auto'
+                  }`}
+                  priority
+                  style={{ objectPosition: 'center center' }}
+                />
+              </div>
+              
+              {/* Brand Text - Desktop Only */}
+              <div className="hidden lg:block">
+                <div className="text-white font-semibold text-sm leading-tight">
+                  {locale === 'tr' ? 'Elektrik' : 'Electrical'}
+                </div>
+                <div className="text-gray-400 text-xs leading-tight opacity-70">
+                  {locale === 'tr' ? 'Elektronik' : 'Electronics'}
+                </div>
+              </div>
             </Link>
 
             {/* Desktop Menu - Center */}
