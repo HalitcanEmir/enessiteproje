@@ -48,7 +48,7 @@ export default function Navbar() {
       },
       {
         threshold: 0,
-        rootMargin: '-84px 0px 0px 0px', // Account for navbar height
+        rootMargin: '0px 0px 0px 0px',
       }
     );
 

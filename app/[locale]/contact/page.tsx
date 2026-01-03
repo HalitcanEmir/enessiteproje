@@ -54,6 +54,9 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-gray-950">
+      {/* Sentinel for Intersection Observer - detects when hero is scrolled past */}
+      <div id="navbar-sentinel" className="absolute top-0 left-0 w-full h-1 pointer-events-none" />
+      
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-gray-900 via-gray-950 to-black text-white py-16 md:py-20 overflow-hidden">
         {/* Subtle background pattern */}
