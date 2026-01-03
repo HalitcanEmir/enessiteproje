@@ -16,6 +16,7 @@ export default function ContactPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,12 +24,47 @@ export default function ContactPage() {
     setSubmitStatus('idle');
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      console.log('Form submitted:', formData);
+      // Client-side validation
+      if (!formData.email || !formData.email.trim()) {
+        setSubmitStatus('error');
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (!formData.message || !formData.message.trim()) {
+        setSubmitStatus('error');
+        setIsSubmitting(false);
+        return;
+      }
+
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          company: formData.company || '',
+          email: formData.email.trim(),
+          phone: formData.phone || '',
+          message: formData.message.trim(),
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error('API Error:', data.error);
+        setErrorMessage(data.error || t('errorMessage'));
+        setSubmitStatus('error');
+        return;
+      }
+
       setSubmitStatus('success');
       setFormData({ company: '', email: '', phone: '', message: '' });
+      setErrorMessage('');
     } catch (error) {
+      console.error('Error submitting form:', error);
+      setErrorMessage(t('errorMessage'));
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -44,6 +80,7 @@ export default function ContactPage() {
     });
     if (submitStatus !== 'idle') {
       setSubmitStatus('idle');
+      setErrorMessage('');
     }
   };
 
@@ -114,10 +151,10 @@ export default function ContactPage() {
                     <p className="text-gray-300">{t('successMessage')}</p>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-5">
+                  <form onSubmit={handleSubmit} className="space-y-5" noValidate>
                     {submitStatus === 'error' && (
                       <div className="bg-amber-900/30 border border-amber-700/50 text-amber-200 px-4 py-3 rounded-lg text-sm">
-                        {t('errorMessage')}
+                        {errorMessage || t('errorMessage')}
                       </div>
                     )}
 
@@ -154,7 +191,6 @@ export default function ContactPage() {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        required
                         className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6] transition-all duration-200 text-white placeholder-gray-400"
                         placeholder={t('email')}
                       />
@@ -193,7 +229,6 @@ export default function ContactPage() {
                         rows={6}
                         value={formData.message}
                         onChange={handleChange}
-                        required
                         className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6] transition-all duration-200 resize-none text-white placeholder-gray-400"
                         placeholder={t('message')}
                       />
