@@ -53,43 +53,105 @@ const referenceLogos: ReferenceLogo[] = [
 export default function ReferencesSection() {
   const t = useTranslations('references');
   const scrollRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const positionRef = useRef(0);
+  const isDraggingRef = useRef(false);
+  const startXRef = useRef(0);
+  const animationIdRef = useRef<number>();
 
   // Duplicate logos for seamless infinite loop (2 sets for smooth looping)
   const duplicatedLogos = [...referenceLogos, ...referenceLogos];
 
+  // Calculate one set width (6 logos + 5 gaps)
+  const logoWidth = 224; // lg:w-56 = 224px
+  const gap = 32; // lg:gap-8 = 32px
+  const oneSetWidth = logoWidth * 6 + gap * 5;
+  const speed = 0.5; // pixels per frame
+
+  // Auto-scroll animation
   useEffect(() => {
     const scrollContainer = scrollRef.current;
     if (!scrollContainer) return;
 
-    let animationId: number;
-    let position = 0;
-    const speed = 0.5; // pixels per frame
-    
-    // Calculate one set width (6 logos + 5 gaps)
-    const logoWidth = 224; // lg:w-56 = 224px
-    const gap = 32; // lg:gap-8 = 32px
-    const oneSetWidth = logoWidth * 6 + gap * 5;
-
     const animate = () => {
-      position -= speed;
-      
-      // Reset when we've scrolled one set width
-      if (Math.abs(position) >= oneSetWidth) {
-        position = 0;
+      if (!isDraggingRef.current) {
+        positionRef.current -= speed;
+        
+        // Reset when we've scrolled one set width
+        if (Math.abs(positionRef.current) >= oneSetWidth) {
+          positionRef.current = 0;
+        }
+        
+        scrollContainer.style.transform = `translateX(${positionRef.current}px)`;
       }
-      
-      scrollContainer.style.transform = `translateX(${position}px)`;
-      animationId = requestAnimationFrame(animate);
+      animationIdRef.current = requestAnimationFrame(animate);
     };
 
-    animationId = requestAnimationFrame(animate);
+    animationIdRef.current = requestAnimationFrame(animate);
 
     return () => {
-      if (animationId) {
-        cancelAnimationFrame(animationId);
+      if (animationIdRef.current) {
+        cancelAnimationFrame(animationIdRef.current);
       }
     };
   }, []);
+
+  // Mouse drag handlers
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDraggingRef.current || !scrollRef.current) return;
+
+      const deltaX = e.clientX - startXRef.current;
+      positionRef.current -= deltaX;
+      
+      // Normalize position to stay within bounds
+      while (Math.abs(positionRef.current) >= oneSetWidth) {
+        positionRef.current = positionRef.current % oneSetWidth;
+      }
+      
+      scrollRef.current.style.transform = `translateX(${positionRef.current}px)`;
+      startXRef.current = e.clientX;
+    };
+
+    const handleMouseUp = () => {
+      isDraggingRef.current = false;
+      if (containerRef.current) {
+        containerRef.current.style.cursor = 'grab';
+      }
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, []);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    isDraggingRef.current = true;
+    startXRef.current = e.clientX;
+    if (containerRef.current) {
+      containerRef.current.style.cursor = 'grabbing';
+    }
+    
+    // Update position ref with current position
+    if (scrollRef.current) {
+      const transform = scrollRef.current.style.transform;
+      const match = transform.match(/translateX\(([-\d.]+)px\)/);
+      if (match) {
+        positionRef.current = parseFloat(match[1]);
+      }
+    }
+  };
+
+  const handleMouseLeave = () => {
+    isDraggingRef.current = false;
+    if (containerRef.current) {
+      containerRef.current.style.cursor = 'grab';
+    }
+  };
 
   return (
     <section className="py-16 bg-gray-50">
@@ -107,7 +169,12 @@ export default function ReferencesSection() {
         {/* Carousel Container - Infinite Scroll */}
         <div className="relative overflow-hidden">
           <div className="flex items-center justify-center">
-            <div className="relative w-full max-w-7xl overflow-hidden">
+            <div 
+              ref={containerRef}
+              className="relative w-full max-w-7xl overflow-hidden cursor-grab select-none"
+              onMouseDown={handleMouseDown}
+              onMouseLeave={handleMouseLeave}
+            >
               {/* Horizontal Logo Row - Seamless infinite scroll */}
               <div 
                 ref={scrollRef}
