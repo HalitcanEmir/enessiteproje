@@ -15,6 +15,8 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isServicesMobileOpen, setIsServicesMobileOpen] = useState(false);
+  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
+  const lastScrollYRef = useRef(0);
   const servicesRef = useRef<HTMLDivElement>(null);
 
   const navItems = [
@@ -25,6 +27,35 @@ export default function Navbar() {
     { href: `/${locale}/contact`, label: t('contact'), hasDropdown: false },
   ];
 
+  // Scroll handler for navbar show/hide
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const lastScrollY = lastScrollYRef.current;
+      
+      // Show/hide navbar based on scroll direction
+      if (currentScrollY < 10) {
+        // At the very top, always show navbar
+        setIsNavbarVisible(true);
+      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down, hide navbar
+        setIsNavbarVisible(false);
+      } else if (currentScrollY < lastScrollY) {
+        // Scrolling up, show navbar
+        setIsNavbarVisible(true);
+      }
+      
+      lastScrollYRef.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial check
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   // Intersection Observer for hero mode detection
   useEffect(() => {
     const sentinel = document.getElementById('navbar-sentinel');
@@ -33,7 +64,7 @@ export default function Navbar() {
       const handleScroll = () => {
         setIsScrolled(window.scrollY > 100);
       };
-      window.addEventListener('scroll', handleScroll);
+      window.addEventListener('scroll', handleScroll, { passive: true });
       handleScroll();
       return () => window.removeEventListener('scroll', handleScroll);
     }
@@ -90,7 +121,12 @@ export default function Navbar() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 h-[84px] transition-all duration-500 ${
           isScrolled ? 'bg-[#0a1929] shadow-[0_8px_20px_rgba(0,0,0,0.25)]' : ''
+        } ${
+          isNavbarVisible ? 'translate-y-0' : '-translate-y-full'
         }`}
+        style={{
+          transition: 'transform 0.3s ease-in-out, background-color 0.5s ease, box-shadow 0.5s ease',
+        }}
       >
         {/* Background - semi-transparent gradient when on hero, solid when scrolled */}
         <div
