@@ -54,9 +54,6 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-gray-950">
-      {/* Sentinel for Intersection Observer - detects when hero is scrolled past */}
-      <div id="navbar-sentinel" className="absolute top-0 left-0 w-full h-1 pointer-events-none" />
-      
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-gray-900 via-gray-950 to-black text-white py-16 md:py-20 overflow-hidden">
         {/* Subtle background pattern */}
@@ -78,6 +75,9 @@ export default function ContactPage() {
           </motion.div>
         </div>
       </section>
+      
+      {/* Sentinel for Intersection Observer - detects when hero is scrolled past */}
+      <div id="navbar-sentinel" className="absolute left-0 w-full h-1 pointer-events-none" style={{ top: 'calc(16rem + 5rem)' }} />
 
       {/* Main Content Section */}
       <section className="py-12 md:py-16 bg-gradient-to-b from-gray-900 via-gray-950 to-black relative overflow-hidden">

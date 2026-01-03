@@ -29,6 +29,10 @@ export default function Navbar() {
 
   // Scroll handler for navbar show/hide
   useEffect(() => {
+    // Reset scroll position on page change
+    lastScrollYRef.current = 0;
+    setIsNavbarVisible(true);
+
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       const lastScrollY = lastScrollYRef.current;
@@ -54,41 +58,58 @@ export default function Navbar() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [pathname]);
 
   // Intersection Observer for hero mode detection
   useEffect(() => {
-    const sentinel = document.getElementById('navbar-sentinel');
-    if (!sentinel) {
-      // Fallback to scrollY threshold if sentinel not found
-      const handleScroll = () => {
-        setIsScrolled(window.scrollY > 100);
-      };
-      window.addEventListener('scroll', handleScroll, { passive: true });
-      handleScroll();
-      return () => window.removeEventListener('scroll', handleScroll);
-    }
+    // Reset scroll state on page change
+    setIsScrolled(false);
+    lastScrollYRef.current = 0;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          // When sentinel is visible = we're in hero mode
-          // When sentinel is not visible = we've scrolled past hero
-          setIsScrolled(!entry.isIntersecting);
-        });
-      },
-      {
-        threshold: 0,
-        rootMargin: '0px 0px 0px 0px',
+    // Small delay to ensure DOM is ready after navigation
+    let observer: IntersectionObserver | null = null;
+    let scrollHandler: (() => void) | null = null;
+    
+    const timeoutId = setTimeout(() => {
+      const sentinel = document.getElementById('navbar-sentinel');
+      if (!sentinel) {
+        // Fallback to scrollY threshold if sentinel not found
+        scrollHandler = () => {
+          setIsScrolled(window.scrollY > 100);
+        };
+        window.addEventListener('scroll', scrollHandler, { passive: true });
+        scrollHandler();
+        return;
       }
-    );
 
-    observer.observe(sentinel);
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            // When sentinel is visible = we're in hero mode
+            // When sentinel is not visible = we've scrolled past hero
+            setIsScrolled(!entry.isIntersecting);
+          });
+        },
+        {
+          threshold: 0,
+          rootMargin: '0px 0px 0px 0px',
+        }
+      );
+
+      observer.observe(sentinel);
+    }, 100);
 
     return () => {
-      observer.unobserve(sentinel);
+      clearTimeout(timeoutId);
+      if (observer) {
+        const sentinel = document.getElementById('navbar-sentinel');
+        if (sentinel) observer.unobserve(sentinel);
+      }
+      if (scrollHandler) {
+        window.removeEventListener('scroll', scrollHandler);
+      }
     };
-  }, []);
+  }, [pathname]);
 
   // Close dropdown when clicking outside
   useEffect(() => {

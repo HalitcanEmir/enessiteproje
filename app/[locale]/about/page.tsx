@@ -8,9 +8,6 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Sentinel for Intersection Observer - detects when hero is scrolled past */}
-      <div id="navbar-sentinel" className="absolute top-0 left-0 w-full h-1 pointer-events-none" />
-      
       {/* Header Section with Hero Image */}
       <section className="relative w-full h-[50vh] min-h-[400px] max-h-[550px] overflow-hidden">
         <div className="absolute inset-0">
@@ -35,6 +32,9 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+      
+      {/* Sentinel for Intersection Observer - detects when hero is scrolled past */}
+      <div id="navbar-sentinel" className="absolute left-0 w-full h-1 pointer-events-none" style={{ top: '50vh' }} />
 
       {/* Main Content Section */}
       <section className="py-16 md:py-24 bg-white">

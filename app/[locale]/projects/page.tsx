@@ -33,19 +33,32 @@ export default function ProjectsPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="bg-white py-16 md:py-20 border-b border-gray-100">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+      <section className="relative w-full h-[50vh] min-h-[400px] max-h-[550px] overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/projects/project-1.jpg"
+            alt="Projects"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/45 to-black/55" />
+        </div>
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 tracking-tight">
               {t('title')}
             </h1>
-            <div className="h-1 w-16 bg-[#3b82f6] mx-auto mb-4"></div>
-            <p className="text-lg text-gray-600">
+            <div className="w-20 h-1 bg-blue-500 mx-auto mb-5" />
+            <p className="text-base md:text-lg text-gray-100 leading-relaxed max-w-3xl mx-auto">
               {t('subtitle')}
             </p>
           </div>
         </div>
       </section>
+      
+      {/* Sentinel for Intersection Observer - detects when hero is scrolled past */}
+      <div id="navbar-sentinel" className="absolute left-0 w-full h-1 pointer-events-none" style={{ top: '50vh' }} />
 
       {/* Filters Section */}
       <section className="bg-white border-b border-gray-100 sticky top-[72px] md:top-[76px] z-40">
