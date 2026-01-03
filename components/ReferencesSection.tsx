@@ -1,8 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 
 interface ReferenceLogo {
@@ -49,57 +48,48 @@ const referenceLogos: ReferenceLogo[] = [
     logo: '/images/adaletbakanl.png',
     alt: 'Adalet Bakanlığı Logo',
   },
-  {
-    id: '7',
-    name: 'Referans 7',
-    logo: '/images/enessiteresim2.jpeg',
-    alt: 'Referans 7 Logo',
-  },
-  {
-    id: '8',
-    name: 'Referans 8',
-    logo: '/images/logo.png',
-    alt: 'Referans 8 Logo',
-  },
-  {
-    id: '9',
-    name: 'Referans 9',
-    logo: '/images/projects/project-1.jpg',
-    alt: 'Referans 9 Logo',
-  },
-  {
-    id: '10',
-    name: 'Referans 10',
-    logo: '/images/projects/project-1.jpg',
-    alt: 'Referans 10 Logo',
-  },
 ];
-
-const VISIBLE_COUNT = 6;
 
 export default function ReferencesSection() {
   const t = useTranslations('references');
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Duplicate logos for seamless infinite loop (2 sets for smooth looping)
+  const duplicatedLogos = [...referenceLogos, ...referenceLogos];
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % referenceLogos.length);
-    }, 2800);
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
 
-    return () => clearInterval(interval);
+    let animationId: number;
+    let position = 0;
+    const speed = 0.5; // pixels per frame
+    
+    // Calculate one set width (6 logos + 5 gaps)
+    const logoWidth = 224; // lg:w-56 = 224px
+    const gap = 32; // lg:gap-8 = 32px
+    const oneSetWidth = logoWidth * 6 + gap * 5;
+
+    const animate = () => {
+      position -= speed;
+      
+      // Reset when we've scrolled one set width
+      if (Math.abs(position) >= oneSetWidth) {
+        position = 0;
+      }
+      
+      scrollContainer.style.transform = `translateX(${position}px)`;
+      animationId = requestAnimationFrame(animate);
+    };
+
+    animationId = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    };
   }, []);
-
-  // Gösterilecek logoları hesapla
-  const getVisibleLogos = () => {
-    const visibleLogos = [];
-    for (let i = 0; i < VISIBLE_COUNT; i++) {
-      const logoIndex = (currentIndex + i) % referenceLogos.length;
-      visibleLogos.push(referenceLogos[logoIndex]);
-    }
-    return visibleLogos;
-  };
-
-  const visibleLogos = getVisibleLogos();
 
   return (
     <section className="py-16 bg-gray-50">
@@ -114,60 +104,38 @@ export default function ReferencesSection() {
           </p>
         </div>
 
-        {/* Carousel Container - Horizontal Row */}
+        {/* Carousel Container - Infinite Scroll */}
         <div className="relative overflow-hidden">
           <div className="flex items-center justify-center">
-            <div className="relative w-full max-w-7xl">
-              {/* Horizontal Logo Row - Tek satır, sağdan sola kayma */}
-              <div className="flex items-center justify-center gap-3 md:gap-6 lg:gap-8 overflow-hidden">
-                <motion.div
-                  key={currentIndex}
-                  initial={{ x: 100 }}
-                  animate={{ x: 0 }}
-                  transition={{
-                    duration: 0.8,
-                    ease: [0.25, 0.1, 0.25, 1],
-                  }}
-                  className="flex items-center gap-3 md:gap-6 lg:gap-8"
-                >
-                  {visibleLogos.map((logo) => (
-                    <div
-                      key={`${logo.id}-${currentIndex}`}
-                      className="flex-shrink-0 w-32 sm:w-40 md:w-48 lg:w-56"
-                    >
-                      <div className="relative w-full aspect-[4/3] bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-4 md:p-6 flex items-center justify-center hover:grayscale border border-gray-100">
-                        <Image
-                          src={logo.logo}
-                          alt={logo.alt}
-                          fill
-                          className="object-contain"
-                          sizes="(max-width: 768px) 160px, (max-width: 1024px) 192px, 224px"
-                        />
-                      </div>
+            <div className="relative w-full max-w-7xl overflow-hidden">
+              {/* Horizontal Logo Row - Seamless infinite scroll */}
+              <div 
+                ref={scrollRef}
+                className="flex items-center gap-3 md:gap-6 lg:gap-8"
+                style={{ width: 'fit-content', willChange: 'transform' }}
+              >
+                {duplicatedLogos.map((logo, index) => (
+                  <div
+                    key={`${logo.id}-${index}`}
+                    className="flex-shrink-0 w-32 sm:w-40 md:w-48 lg:w-56"
+                  >
+                    <div className="relative w-full aspect-[4/3] bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-4 md:p-6 flex items-center justify-center hover:grayscale border border-gray-100">
+                      <Image
+                        src={logo.logo}
+                        alt={logo.alt}
+                        fill
+                        className="object-contain"
+                        sizes="(max-width: 768px) 160px, (max-width: 1024px) 192px, 224px"
+                      />
                     </div>
-                  ))}
-                </motion.div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
-
-        {/* Dots Indicator */}
-        <div className="flex justify-center items-center gap-2 mt-8">
-          {referenceLogos.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`transition-all duration-300 rounded-full ${
-                index === currentIndex
-                  ? 'w-8 h-2 bg-primary'
-                  : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
       </div>
+
     </section>
   );
 }

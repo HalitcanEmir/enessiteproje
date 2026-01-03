@@ -14,5 +14,51 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-128px * 6 - 12px * 5)); /* mobile: 6 logos + 5 gaps */
+    }
+  }
+  
+  @media (min-width: 640px) {
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(calc(-160px * 6 - 24px * 5)); /* sm: 6 logos + 5 gaps */
+      }
+    }
+  }
+  
+  @media (min-width: 768px) {
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(calc(-192px * 6 - 24px * 5)); /* md: 6 logos + 5 gaps */
+      }
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(calc(-224px * 6 - 32px * 5)); /* lg: 6 logos + 5 gaps = 1504px */
+      }
+    }
+  }
+  
+  .animate-scroll-refs {
+    animation: scroll 30s linear infinite;
+  }
 }
 
