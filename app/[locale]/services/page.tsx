@@ -2,6 +2,7 @@
 
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 export default function ServicesPage() {
@@ -76,14 +77,25 @@ export default function ServicesPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header Section */}
-      <section className="bg-white py-16 md:py-20 border-b border-gray-100">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
+      {/* Header Section with Hero Image */}
+      <section className="relative w-full h-[50vh] min-h-[400px] max-h-[550px] overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/Gemini_Generated_Image_bd6k1lbd6k1lbd6k.png"
+            alt="Electrical Control Room"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/45 to-black/55" />
+        </div>
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
+          <div className="max-w-4xl">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 tracking-tight">
               {t('title')}
             </h1>
-            <p className="text-base md:text-lg text-gray-600">
+            <div className="w-20 h-1 bg-blue-500 mb-5" />
+            <p className="text-base md:text-lg text-gray-100 leading-relaxed max-w-3xl">
               {t('subtitle')}
             </p>
           </div>

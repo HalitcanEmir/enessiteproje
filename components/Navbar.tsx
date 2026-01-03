@@ -25,13 +25,38 @@ export default function Navbar() {
     { href: `/${locale}/contact`, label: t('contact'), hasDropdown: false },
   ];
 
-  // Scroll detection for compact navbar
+  // Intersection Observer for hero mode detection
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 30);
+    const sentinel = document.getElementById('navbar-sentinel');
+    if (!sentinel) {
+      // Fallback to scrollY threshold if sentinel not found
+      const handleScroll = () => {
+        setIsScrolled(window.scrollY > 100);
+      };
+      window.addEventListener('scroll', handleScroll);
+      handleScroll();
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // When sentinel is visible = we're in hero mode
+          // When sentinel is not visible = we've scrolled past hero
+          setIsScrolled(!entry.isIntersecting);
+        });
+      },
+      {
+        threshold: 0,
+        rootMargin: '-84px 0px 0px 0px', // Account for navbar height
+      }
+    );
+
+    observer.observe(sentinel);
+
+    return () => {
+      observer.unobserve(sentinel);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Close dropdown when clicking outside
@@ -63,45 +88,42 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 bg-[#0a1929] border-b border-[#1a3a5a] transition-all duration-300 ${
-          isScrolled ? 'h-[72px]' : 'h-[76px]'
+        className={`fixed top-0 left-0 right-0 z-50 h-[84px] transition-all duration-500 ${
+          isScrolled ? 'bg-[#0a1929] shadow-[0_8px_20px_rgba(0,0,0,0.25)]' : ''
         }`}
       >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full">
+        {/* Background - semi-transparent gradient when on hero, solid when scrolled */}
+        <div
+          className={`absolute inset-0 transition-all duration-500 ${
+            isScrolled
+              ? 'bg-[#0a1929]'
+              : 'bg-gradient-to-b from-black/20 via-black/15 to-transparent backdrop-blur-sm'
+          }`}
+        />
+
+        {/* Bottom border - only when scrolled */}
+        {isScrolled && (
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
+        )}
+
+        {/* Inner container */}
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full max-w-[1280px] relative">
           <div className="flex items-center justify-between h-full">
             {/* Logo - Left */}
             <Link 
               href={`/${locale}`} 
               className="flex items-center gap-3 flex-shrink-0"
             >
-              <div
-                className={`flex items-center justify-center backdrop-blur-sm border rounded-xl shadow-sm transition-all duration-200 ${
-                  isScrolled
-                    ? 'h-[54px] w-[180px] px-3 bg-white/[0.03] border-white/5'
-                    : 'h-[58px] w-[200px] px-4 bg-white/5 border-white/10'
-                }`}
-              >
+              <div className="relative flex items-center justify-center h-[50px]">
                 <Image
                   src="/images/logo.png"
                   alt="Company Logo"
                   width={180}
-                  height={58}
-                  className={`object-contain transition-all duration-200 ${
-                    isScrolled ? 'h-[46px] w-auto' : 'h-[50px] w-auto'
-                  }`}
+                  height={60}
+                  className="object-contain h-full w-auto transition-all duration-500"
                   priority
                   style={{ objectPosition: 'center center' }}
                 />
-              </div>
-              
-              {/* Brand Text - Desktop Only */}
-              <div className="hidden lg:block">
-                <div className="text-white font-semibold text-sm leading-tight">
-                  {locale === 'tr' ? 'Elektrik' : 'Electrical'}
-                </div>
-                <div className="text-gray-400 text-xs leading-tight opacity-70">
-                  {locale === 'tr' ? 'Elektronik' : 'Electronics'}
-                </div>
               </div>
             </Link>
 
@@ -119,14 +141,13 @@ export default function Navbar() {
                       >
                         <Link
                           href={item.href}
-                          className={`relative px-3 py-2 text-sm font-medium text-gray-300 uppercase tracking-[0.5px] transition-colors duration-200 ${
-                            active ? 'text-white' : 'hover:text-white'
+                          className={`px-3 py-2 text-sm font-medium uppercase tracking-wide transition-opacity duration-200 ${
+                            isScrolled
+                              ? 'text-white hover:opacity-80'
+                              : 'text-white hover:opacity-80'
                           }`}
                         >
                           {item.label}
-                          {active && (
-                            <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#3b82f6]" />
-                          )}
                         </Link>
                       </div>
 
@@ -135,14 +156,14 @@ export default function Navbar() {
                         <div
                           onMouseEnter={() => setIsServicesOpen(true)}
                           onMouseLeave={() => setIsServicesOpen(false)}
-                          className="absolute top-full left-0 mt-1 w-56 bg-[#1a2332] shadow-lg border border-[#1a3a5a]/50 overflow-hidden"
+                          className="absolute top-full left-0 mt-2 w-56 bg-[#0f1e2e] shadow-xl border border-[#1a3a5a]/50 backdrop-blur-md overflow-hidden rounded-lg"
                         >
                           <div className="py-2">
                             {servicesMenu.map((service, index) => (
                               <Link
                                 key={index}
                                 href={`/${locale}${service.href}`}
-                                className="block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-[#243447] transition-colors duration-150"
+                                className="block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-[#1a2a3a] transition-colors duration-150"
                                 onClick={() => setIsServicesOpen(false)}
                               >
                                 {service.title[locale as 'tr' | 'en']}
@@ -158,14 +179,13 @@ export default function Navbar() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`relative px-3 py-2 text-sm font-medium text-gray-300 uppercase tracking-[0.5px] transition-colors duration-200 ${
-                      active ? 'text-white' : 'hover:text-white'
+                    className={`px-3 py-2 text-sm font-medium uppercase tracking-wide transition-opacity duration-200 ${
+                      isScrolled
+                        ? 'text-white hover:opacity-80'
+                        : 'text-white hover:opacity-80'
                     }`}
                   >
                     {item.label}
-                    {active && (
-                      <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#3b82f6]" />
-                    )}
                   </Link>
                 );
               })}
@@ -176,25 +196,29 @@ export default function Navbar() {
               {/* Language Toggle */}
               <button
                 onClick={toggleLocale}
-                className="text-sm font-medium text-gray-300 hover:text-[#3b82f6] transition-colors duration-200 uppercase tracking-[0.5px]"
+                className={`text-sm font-medium uppercase tracking-wide transition-opacity duration-200 ${
+                  isScrolled
+                    ? 'text-white hover:opacity-80'
+                    : 'text-white hover:opacity-80'
+                }`}
                 aria-label="Toggle language"
               >
                 {locale === 'tr' ? 'TR | EN' : 'EN | TR'}
               </button>
 
-              {/* CTA Button */}
-              <Link
-                href={`/${locale}/contact`}
-                className="bg-[#3b82f6] hover:bg-[#2563eb] text-white px-5 py-2 rounded-md font-medium text-sm transition-colors duration-200"
-              >
-                {t('getQuote')}
-              </Link>
+              {/* CTA Button - only show when scrolled */}
+              {isScrolled && (
+                <Link
+                  href={`/${locale}/contact`}
+                  className="px-5 py-2.5 bg-[#3b82f6] hover:bg-[#2563eb] text-white font-medium text-sm rounded-lg transition-colors duration-200"
+                >
+                  {t('getQuote')}
+                </Link>
+              )}
             </div>
-
-            {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 text-gray-300 hover:text-white transition-colors"
+              className="lg:hidden p-2 text-white hover:opacity-80 transition-opacity duration-200"
               aria-label="Toggle menu"
             >
               <svg
@@ -219,7 +243,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="fixed inset-0 bg-[#0a1929] z-40 lg:hidden pt-20">
+        <div className="fixed inset-0 bg-[#0a1929] z-40 lg:hidden pt-[84px]">
           <div className="flex flex-col h-full">
             {/* Mobile Nav Items */}
             <nav className="flex-1 px-6 py-8 space-y-1 overflow-y-auto">
@@ -230,10 +254,10 @@ export default function Navbar() {
                     <div key={item.href}>
                       <button
                         onClick={() => setIsServicesMobileOpen(!isServicesMobileOpen)}
-                        className={`flex items-center justify-between w-full px-4 py-4 text-base font-medium uppercase tracking-[0.5px] transition-colors ${
+                        className={`flex items-center justify-between w-full px-4 py-4 text-base font-medium uppercase tracking-[0.8px] transition-colors ${
                           active
-                            ? 'text-white border-b border-[#3b82f6]'
-                            : 'text-gray-300 hover:text-white'
+                            ? 'text-white border-b border-blue-500'
+                            : 'text-gray-300 hover:text-white border-b border-[#1a3a5a]'
                         }`}
                       >
                         <span>{item.label}</span>
@@ -273,9 +297,9 @@ export default function Navbar() {
                     key={item.href}
                     href={item.href}
                     onClick={() => setIsMenuOpen(false)}
-                    className={`block px-4 py-4 text-base font-medium uppercase tracking-[0.5px] transition-colors border-b ${
+                    className={`block px-4 py-4 text-base font-medium uppercase tracking-[0.8px] transition-colors border-b ${
                       active
-                        ? 'text-white border-[#3b82f6]'
+                        ? 'text-white border-blue-500'
                         : 'text-gray-300 hover:text-white border-[#1a3a5a]'
                     }`}
                   >
@@ -293,7 +317,7 @@ export default function Navbar() {
                   toggleLocale();
                   setIsMenuOpen(false);
                 }}
-                className="w-full px-4 py-3 text-base font-medium text-gray-300 hover:text-white uppercase tracking-[0.5px] transition-colors border border-[#1a3a5a] rounded-md"
+                className="w-full px-4 py-3 text-base font-medium text-gray-300 hover:text-white uppercase tracking-[0.8px] transition-colors border border-[#1a3a5a] rounded-xl hover:border-gray-600"
               >
                 {locale === 'tr' ? 'TR | EN' : 'EN | TR'}
               </button>
@@ -301,7 +325,7 @@ export default function Navbar() {
               <Link
                 href={`/${locale}/contact`}
                 onClick={() => setIsMenuOpen(false)}
-                className="block w-full text-center bg-[#3b82f6] hover:bg-[#2563eb] text-white px-5 py-3 rounded-md font-medium text-base transition-colors duration-200"
+                className="block w-full text-center bg-[#3b82f6] hover:bg-[#2563eb] text-white px-5 py-3 rounded-xl font-medium text-base transition-colors duration-200 shadow-lg"
               >
                 {t('getQuote')}
               </Link>
@@ -310,8 +334,6 @@ export default function Navbar() {
         </div>
       )}
 
-      {/* Spacer to prevent content from going under navbar */}
-      <div className={isScrolled ? 'h-[72px]' : 'h-[76px]'} />
     </>
   );
 }
