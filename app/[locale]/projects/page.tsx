@@ -31,7 +31,7 @@ export default function ProjectsPage() {
   const filters: FilterType[] = ['all', 'ongoing', 'featured', 'completed'];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="relative min-h-screen bg-white">
       {/* Hero Section */}
       <section className="relative w-full h-[50vh] min-h-[400px] max-h-[550px] overflow-hidden">
         <div className="absolute inset-0">
@@ -61,7 +61,7 @@ export default function ProjectsPage() {
       <div id="navbar-sentinel" className="absolute left-0 w-full h-1 pointer-events-none" style={{ top: '50vh' }} />
 
       {/* Filters Section */}
-      <section className="bg-white border-b border-gray-100 sticky top-[72px] md:top-[76px] z-40">
+      <section className="bg-white border-b border-gray-100 sticky top-[84px] z-40">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center overflow-x-auto scrollbar-hide">
             <div className="flex items-center gap-1 md:gap-2 py-4">
