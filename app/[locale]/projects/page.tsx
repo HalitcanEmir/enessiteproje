@@ -31,7 +31,7 @@ export default function ProjectsPage() {
   const filters: FilterType[] = ['all', 'ongoing', 'featured', 'completed'];
 
   return (
-    <div className="relative min-h-screen bg-white">
+    <div className="bg-white">
       {/* Hero Section */}
       <section className="relative w-full h-[50vh] min-h-[400px] max-h-[550px] overflow-hidden">
         <div className="absolute inset-0">
