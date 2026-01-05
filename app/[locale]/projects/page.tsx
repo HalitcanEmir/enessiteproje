@@ -31,9 +31,9 @@ export default function ProjectsPage() {
   const filters: FilterType[] = ['all', 'ongoing', 'featured', 'completed'];
 
   return (
-    <div className="bg-white">
+    <>
       {/* Hero Section */}
-      <section className="relative w-full h-[50vh] min-h-[400px] max-h-[550px] overflow-hidden">
+      <section className="relative w-full h-[50vh] min-h-[400px] max-h-[550px] overflow-hidden bg-white">
         <div className="absolute inset-0">
           <Image
             src="/images/projects/project-1.jpg"
@@ -61,7 +61,10 @@ export default function ProjectsPage() {
       <div id="navbar-sentinel" className="absolute left-0 w-full h-1 pointer-events-none" style={{ top: '50vh' }} />
 
       {/* Filters Section - Sticky */}
-      <div className="sticky top-[84px] z-40 bg-white border-b border-gray-100 shadow-sm">
+      <div 
+        className="sticky top-[84px] z-40 bg-white border-b border-gray-100 shadow-sm w-full"
+        style={{ position: '-webkit-sticky', position: 'sticky' }}
+      >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center overflow-x-auto scrollbar-hide">
             <div className="flex items-center gap-1 md:gap-2 py-4">
@@ -155,6 +158,6 @@ export default function ProjectsPage() {
           )}
         </div>
       </section>
-    </div>
+    </>
   );
 }
