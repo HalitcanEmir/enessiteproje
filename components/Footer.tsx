@@ -211,7 +211,9 @@ export default function Footer() {
             {/* Social Media Icons */}
             <div className="flex items-center space-x-4 mt-6">
               <a
-                href="#"
+                href="https://www.linkedin.com/search/results/all/?fetchDeterministicClustersOnly=true&heroEntityKey=urn%3Ali%3Aorganization%3A110611007&keywords=cüneyt%20çetinel%20mühendislik%20müşavirlik&origin=RICH_QUERY_TYPEAHEAD_HISTORY&position=0&searchId=18a8c748-58f7-45cd-9050-e1582a556350&sid=e%2CY&spellCorrectionEnabled=true"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-900 hover:bg-primary transition-colors duration-200 text-gray-400 hover:text-white"
                 aria-label="LinkedIn"
               >
