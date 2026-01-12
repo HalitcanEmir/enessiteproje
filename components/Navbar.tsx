@@ -173,13 +173,17 @@ export default function Navbar() {
             >
               <div className="relative flex items-center justify-center h-[50px]">
                 <Image
-                  src="/images/logo.png"
-                  alt="Company Logo"
-                  width={180}
+                  src="/images/eneslogoson.jpeg"
+                  alt="Cüneyt Çetinel Mühendislik"
+                  width={200}
                   height={60}
                   className="object-contain h-full w-auto transition-all duration-500"
                   priority
-                  style={{ objectPosition: 'center center' }}
+                  style={{ 
+                    objectPosition: 'center center',
+                    mixBlendMode: 'multiply',
+                    filter: 'brightness(0) invert(1)'
+                  }}
                 />
               </div>
             </Link>
