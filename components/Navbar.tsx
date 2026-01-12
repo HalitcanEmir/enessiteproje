@@ -173,7 +173,7 @@ export default function Navbar() {
             >
               <div className="relative flex items-center justify-center h-[50px] w-[50px] bg-white rounded-md p-1">
                 <Image
-                  src="/images/eneslogo3.jpeg"
+                  src="/images/Ekran Resmi 2026-01-12 22.18.35.png"
                   alt="Cüneyt Çetinel Mühendislik"
                   width={50}
                   height={50}
