@@ -14,6 +14,7 @@ export default function ProjectsPage() {
   const locale = useLocale();
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
   const [projects, setProjects] = useState<ProjectCard[]>(projectsData);
+  const [isFilterFixed, setIsFilterFixed] = useState(false);
 
   // Load projects from localStorage (admin changes) or use default data
   useEffect(() => {
@@ -23,6 +24,20 @@ export default function ProjectsPage() {
         setProjects(JSON.parse(savedProjects));
       }
     }
+  }, []);
+
+  // Make filter bar fixed when scrolling past hero section
+  useEffect(() => {
+    const handleScroll = () => {
+      const heroHeight = window.innerHeight * 0.5; // 50vh
+      const scrolled = window.scrollY > (heroHeight - 84); // navbar height
+      setIsFilterFixed(scrolled);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Check initial position
+
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Filter projects based on active filter
@@ -42,7 +57,7 @@ export default function ProjectsPage() {
   const filters: FilterType[] = ['all', 'ongoing', 'featured', 'completed'];
 
   return (
-    <>
+    <div className="relative">
       {/* Hero Section */}
       <section className="relative w-full h-[50vh] min-h-[400px] max-h-[550px] overflow-hidden bg-white">
         <div className="absolute inset-0">
@@ -71,10 +86,9 @@ export default function ProjectsPage() {
       {/* Sentinel for Intersection Observer - detects when hero is scrolled past */}
       <div id="navbar-sentinel" className="absolute left-0 w-full h-1 pointer-events-none" style={{ top: '50vh' }} />
 
-      {/* Filters Section - Sticky */}
+      {/* Filters Section - Becomes Fixed on Scroll */}
       <div 
-        className="sticky top-[84px] z-40 bg-white border-b border-gray-100 shadow-sm w-full"
-        style={{ position: '-webkit-sticky', position: 'sticky' }}
+        className={`${isFilterFixed ? 'fixed' : 'relative'} top-[84px] left-0 right-0 z-40 bg-white border-b border-gray-100 shadow-sm w-full transition-all duration-200`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center overflow-x-auto scrollbar-hide">
@@ -96,6 +110,9 @@ export default function ProjectsPage() {
           </div>
         </div>
       </div>
+
+      {/* Spacer to prevent content jump when filter becomes fixed */}
+      {isFilterFixed && <div className="h-[68px]" />}
 
       {/* Projects Grid Section */}
       <section className="py-12 md:py-16 bg-white">
@@ -169,6 +186,6 @@ export default function ProjectsPage() {
           )}
         </div>
       </section>
-    </>
+    </div>
   );
 }
