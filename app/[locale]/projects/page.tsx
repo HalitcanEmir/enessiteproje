@@ -14,7 +14,6 @@ export default function ProjectsPage() {
   const locale = useLocale();
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
   const [projects, setProjects] = useState<ProjectCard[]>(projectsData);
-  const [isScrolled, setIsScrolled] = useState(false);
 
   // Load projects from localStorage (admin changes) or use default data
   useEffect(() => {
@@ -24,19 +23,6 @@ export default function ProjectsPage() {
         setProjects(JSON.parse(savedProjects));
       }
     }
-  }, []);
-
-  // Detect scroll to show/hide filter bar
-  useEffect(() => {
-    const handleScroll = () => {
-      const heroHeight = window.innerHeight * 0.5; // 50vh
-      setIsScrolled(window.scrollY > heroHeight - 84);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial check
-
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Filter projects based on active filter
@@ -57,6 +43,32 @@ export default function ProjectsPage() {
 
   return (
     <div className="relative bg-white">
+      {/* Filters Section - Always Fixed at Top */}
+      <div className="fixed top-[84px] left-0 right-0 z-40 bg-white border-b border-gray-100 shadow-md w-full">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-center overflow-x-auto scrollbar-hide">
+            <div className="flex items-center gap-1 md:gap-2 py-4">
+              {filters.map((filter) => (
+                <button
+                  key={filter}
+                  onClick={() => setActiveFilter(filter)}
+                  className={`px-4 md:px-6 py-2 text-sm md:text-base font-medium transition-all duration-200 whitespace-nowrap ${
+                    activeFilter === filter
+                      ? 'text-[#3b82f6] border-b-2 border-[#3b82f6]'
+                      : 'text-gray-600 hover:text-gray-900 border-b-2 border-transparent'
+                  }`}
+                >
+                  {t(`filters.${filter}`)}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Spacer for fixed filter bar */}
+      <div className="h-[68px]" />
+
       {/* Hero Section */}
       <section className="relative w-full h-[50vh] min-h-[400px] max-h-[550px] overflow-hidden">
         <div className="absolute inset-0">
@@ -83,37 +95,7 @@ export default function ProjectsPage() {
       </section>
       
       {/* Sentinel for Intersection Observer - detects when hero is scrolled past */}
-      <div id="navbar-sentinel" className="absolute left-0 w-full h-1 pointer-events-none" style={{ top: '50vh' }} />
-
-      {/* Filters Section - Fixed when scrolled */}
-      <div 
-        className={`${
-          isScrolled ? 'fixed' : 'relative'
-        } top-[84px] left-0 right-0 z-40 bg-white border-b border-gray-100 shadow-sm w-full transition-all duration-300`}
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center overflow-x-auto scrollbar-hide">
-            <div className="flex items-center gap-1 md:gap-2 py-4">
-              {filters.map((filter) => (
-                <button
-                  key={filter}
-                  onClick={() => setActiveFilter(filter)}
-                  className={`px-4 md:px-6 py-2 text-sm md:text-base font-medium transition-all duration-200 whitespace-nowrap ${
-                    activeFilter === filter
-                      ? 'text-[#3b82f6] border-b-2 border-[#3b82f6]'
-                      : 'text-gray-600 hover:text-gray-900 border-b-2 border-transparent'
-                  }`}
-                >
-                  {t(`filters.${filter}`)}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Spacer when filter is fixed */}
-      {isScrolled && <div className="h-[68px]" />}
+      <div id="navbar-sentinel" className="absolute left-0 w-full h-1 pointer-events-none" style={{ top: 'calc(68px + 50vh)' }} />
 
       {/* Projects Grid Section */}
       <section className="py-12 md:py-16 bg-white">
