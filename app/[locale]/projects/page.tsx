@@ -14,6 +14,7 @@ export default function ProjectsPage() {
   const locale = useLocale();
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
   const [projects, setProjects] = useState<ProjectCard[]>(projectsData);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   // Load projects from localStorage (admin changes) or use default data
   useEffect(() => {
@@ -23,6 +24,19 @@ export default function ProjectsPage() {
         setProjects(JSON.parse(savedProjects));
       }
     }
+  }, []);
+
+  // Detect scroll to show/hide filter bar
+  useEffect(() => {
+    const handleScroll = () => {
+      const heroHeight = window.innerHeight * 0.5; // 50vh
+      setIsScrolled(window.scrollY > heroHeight - 84);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check
+
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Filter projects based on active filter
@@ -71,8 +85,12 @@ export default function ProjectsPage() {
       {/* Sentinel for Intersection Observer - detects when hero is scrolled past */}
       <div id="navbar-sentinel" className="absolute left-0 w-full h-1 pointer-events-none" style={{ top: '50vh' }} />
 
-      {/* Filters Section - Sticky */}
-      <div className="sticky top-[84px] z-40 bg-white border-b border-gray-100 shadow-sm w-full">
+      {/* Filters Section - Fixed when scrolled */}
+      <div 
+        className={`${
+          isScrolled ? 'fixed' : 'relative'
+        } top-[84px] left-0 right-0 z-40 bg-white border-b border-gray-100 shadow-sm w-full transition-all duration-300`}
+      >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center overflow-x-auto scrollbar-hide">
             <div className="flex items-center gap-1 md:gap-2 py-4">
@@ -93,6 +111,9 @@ export default function ProjectsPage() {
           </div>
         </div>
       </div>
+
+      {/* Spacer when filter is fixed */}
+      {isScrolled && <div className="h-[68px]" />}
 
       {/* Projects Grid Section */}
       <section className="py-12 md:py-16 bg-white">
