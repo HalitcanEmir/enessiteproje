@@ -171,19 +171,15 @@ export default function Navbar() {
               href={`/${locale}`} 
               className="flex items-center gap-3 flex-shrink-0"
             >
-              <div className="relative flex items-center justify-center h-[50px]">
+              <div className="relative flex items-center justify-center h-[60px] bg-white/95 rounded-lg px-3 py-2 backdrop-blur-sm shadow-sm">
                 <Image
                   src="/images/eneslogoson.jpeg"
                   alt="Cüneyt Çetinel Mühendislik"
                   width={200}
-                  height={60}
-                  className="object-contain h-full w-auto transition-all duration-500"
+                  height={50}
+                  className="object-contain h-full w-auto"
                   priority
-                  style={{ 
-                    objectPosition: 'center center',
-                    mixBlendMode: 'multiply',
-                    filter: 'brightness(0) invert(1)'
-                  }}
+                  style={{ objectPosition: 'center center' }}
                 />
               </div>
             </Link>
