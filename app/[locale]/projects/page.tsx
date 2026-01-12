@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -13,9 +13,20 @@ export default function ProjectsPage() {
   const t = useTranslations('projects');
   const locale = useLocale();
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
+  const [projects, setProjects] = useState<ProjectCard[]>(projectsData);
+
+  // Load projects from localStorage (admin changes) or use default data
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedProjects = localStorage.getItem('projectsData');
+      if (savedProjects) {
+        setProjects(JSON.parse(savedProjects));
+      }
+    }
+  }, []);
 
   // Filter projects based on active filter
-  const filteredProjects = projectsData.filter((project) => {
+  const filteredProjects = projects.filter((project) => {
     switch (activeFilter) {
       case 'ongoing':
         return project.status === 'ongoing';
