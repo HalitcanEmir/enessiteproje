@@ -42,9 +42,18 @@ export default function ProjectsPage() {
   const filters: FilterType[] = ['all', 'ongoing', 'featured', 'completed'];
 
   return (
-    <div className="relative bg-white">
-      {/* Filters Section - Always Fixed at Top */}
-      <div className="fixed top-[84px] left-0 right-0 z-40 bg-white border-b border-gray-100 shadow-md w-full">
+    <div className="bg-white">
+      {/* Filters Section - FIXED PERMANENTLY */}
+      <div 
+        className="z-50 bg-white border-b border-gray-200 shadow-md"
+        style={{
+          position: 'fixed',
+          top: '84px',
+          left: '0',
+          right: '0',
+          width: '100%'
+        }}
+      >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center overflow-x-auto scrollbar-hide">
             <div className="flex items-center gap-1 md:gap-2 py-4">
@@ -66,11 +75,11 @@ export default function ProjectsPage() {
         </div>
       </div>
 
-      {/* Spacer for fixed filter bar */}
-      <div className="h-[68px]" />
+      {/* Spacer - compensates for fixed element */}
+      <div style={{ height: '152px' }} />
 
       {/* Hero Section */}
-      <section className="relative w-full h-[50vh] min-h-[400px] max-h-[550px] overflow-hidden">
+      <section className="relative w-full h-[40vh] min-h-[300px] max-h-[450px] overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="/images/projects/project-1.jpg"
@@ -95,7 +104,7 @@ export default function ProjectsPage() {
       </section>
       
       {/* Sentinel for Intersection Observer - detects when hero is scrolled past */}
-      <div id="navbar-sentinel" className="absolute left-0 w-full h-1 pointer-events-none" style={{ top: 'calc(68px + 50vh)' }} />
+      <div id="navbar-sentinel" className="absolute left-0 w-full h-1 pointer-events-none" style={{ top: '192px' }} />
 
       {/* Projects Grid Section */}
       <section className="py-12 md:py-16 bg-white">
