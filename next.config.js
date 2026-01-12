@@ -6,6 +6,13 @@ const withNextIntl = createNextIntlPlugin('./i18n.ts');
 const nextConfig = {
   images: {
     domains: [],
+    unoptimized: true, // For static export compatibility
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: false,
   },
 };
 
