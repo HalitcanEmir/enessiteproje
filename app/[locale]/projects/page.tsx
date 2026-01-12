@@ -42,44 +42,9 @@ export default function ProjectsPage() {
   const filters: FilterType[] = ['all', 'ongoing', 'featured', 'completed'];
 
   return (
-    <div className="bg-white">
-      {/* Filters Section - FIXED PERMANENTLY */}
-      <div 
-        className="z-50 bg-white border-b border-gray-200 shadow-md"
-        style={{
-          position: 'fixed',
-          top: '84px',
-          left: '0',
-          right: '0',
-          width: '100%'
-        }}
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center overflow-x-auto scrollbar-hide">
-            <div className="flex items-center gap-1 md:gap-2 py-4">
-              {filters.map((filter) => (
-                <button
-                  key={filter}
-                  onClick={() => setActiveFilter(filter)}
-                  className={`px-4 md:px-6 py-2 text-sm md:text-base font-medium transition-all duration-200 whitespace-nowrap ${
-                    activeFilter === filter
-                      ? 'text-[#3b82f6] border-b-2 border-[#3b82f6]'
-                      : 'text-gray-600 hover:text-gray-900 border-b-2 border-transparent'
-                  }`}
-                >
-                  {t(`filters.${filter}`)}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Spacer - compensates for fixed element */}
-      <div style={{ height: '152px' }} />
-
+    <>
       {/* Hero Section */}
-      <section className="relative w-full h-[40vh] min-h-[300px] max-h-[450px] overflow-hidden">
+      <section className="relative w-full h-[50vh] min-h-[400px] max-h-[550px] overflow-hidden bg-white">
         <div className="absolute inset-0">
           <Image
             src="/images/projects/project-1.jpg"
@@ -104,7 +69,33 @@ export default function ProjectsPage() {
       </section>
       
       {/* Sentinel for Intersection Observer - detects when hero is scrolled past */}
-      <div id="navbar-sentinel" className="absolute left-0 w-full h-1 pointer-events-none" style={{ top: '192px' }} />
+      <div id="navbar-sentinel" className="absolute left-0 w-full h-1 pointer-events-none" style={{ top: '50vh' }} />
+
+      {/* Filters Section - Sticky */}
+      <div 
+        className="sticky top-[84px] z-40 bg-white border-b border-gray-100 shadow-sm w-full"
+        style={{ position: '-webkit-sticky', position: 'sticky' }}
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-center overflow-x-auto scrollbar-hide">
+            <div className="flex items-center gap-1 md:gap-2 py-4">
+              {filters.map((filter) => (
+                <button
+                  key={filter}
+                  onClick={() => setActiveFilter(filter)}
+                  className={`px-4 md:px-6 py-2 text-sm md:text-base font-medium transition-all duration-200 whitespace-nowrap ${
+                    activeFilter === filter
+                      ? 'text-[#3b82f6] border-b-2 border-[#3b82f6]'
+                      : 'text-gray-600 hover:text-gray-900 border-b-2 border-transparent'
+                  }`}
+                >
+                  {t(`filters.${filter}`)}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Projects Grid Section */}
       <section className="py-12 md:py-16 bg-white">
@@ -178,6 +169,6 @@ export default function ProjectsPage() {
           )}
         </div>
       </section>
-    </div>
+    </>
   );
 }

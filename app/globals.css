@@ -10,13 +10,6 @@ body {
   @apply bg-white text-secondary;
 }
 
-/* Ensure sticky positioning works correctly */
-html,
-body {
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -68,3 +61,4 @@ body {
     animation: scroll 30s linear infinite;
   }
 }
+
