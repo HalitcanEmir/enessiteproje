@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
 import { motion } from 'framer-motion';
-import { projectsData, ProjectCard } from '@/data/projectsData';
+import { projectsData, type ProjectCard } from '@/data/projectsData';
 
 export default function ProjectsSection() {
   const t = useTranslations('projectsSection');
