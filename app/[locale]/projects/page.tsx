@@ -29,15 +29,25 @@ export default function ProjectsPage() {
   // Make filter bar fixed when scrolling past hero section
   useEffect(() => {
     const handleScroll = () => {
-      const heroHeight = window.innerHeight * 0.5; // 50vh
-      const scrolled = window.scrollY > (heroHeight - 84); // navbar height
-      setIsFilterFixed(scrolled);
+      // Get the actual hero section height from DOM
+      const heroSection = document.querySelector('section');
+      if (!heroSection) return;
+      
+      const heroBottom = heroSection.getBoundingClientRect().bottom;
+      const navbarHeight = 84;
+      
+      // Fix filter bar when hero section scrolls past navbar
+      setIsFilterFixed(heroBottom <= navbarHeight);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
     handleScroll(); // Check initial position
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
   }, []);
 
   // Filter projects based on active filter
