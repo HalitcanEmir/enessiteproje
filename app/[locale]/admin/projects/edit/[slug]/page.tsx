@@ -160,6 +160,34 @@ export default function EditProjectPage() {
             />
           </div>
 
+          {/* Turkish Description */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Proje Açıklaması (Türkçe)
+            </label>
+            <textarea
+              value={formData.description?.tr || ''}
+              onChange={(e) => setFormData({ ...formData, description: { ...formData.description, tr: e.target.value, en: formData.description?.en || '' } })}
+              rows={4}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="Proje hakkında detaylı açıklama yazın..."
+            />
+          </div>
+
+          {/* English Description */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Proje Açıklaması (İngilizce)
+            </label>
+            <textarea
+              value={formData.description?.en || ''}
+              onChange={(e) => setFormData({ ...formData, description: { tr: formData.description?.tr || '', en: e.target.value } })}
+              rows={4}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="Write detailed description about the project..."
+            />
+          </div>
+
           {/* Location */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>

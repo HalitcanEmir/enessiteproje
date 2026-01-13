@@ -4,6 +4,10 @@ export interface ProjectCard {
     tr: string;
     en: string;
   };
+  description?: {
+    tr: string;
+    en: string;
+  };
   location: {
     tr: string;
     en: string;
@@ -29,6 +33,10 @@ export const projectsData: ProjectCard[] = [
       tr: 'Kurumsal Elektrik Altyapı Projesi',
       en: 'Corporate Electrical Infrastructure Project',
     },
+    description: {
+      tr: 'Ankara\'da bulunan büyük ölçekli kurumsal bina için elektrik altyapı projesi. Alçak gerilim sistemleri, pano montajı ve elektrik taahhüt işlerini kapsayan kapsamlı bir projedir.',
+      en: 'Electrical infrastructure project for a large-scale corporate building in Ankara. A comprehensive project covering low voltage systems, panel assembly, and electrical contracting work.',
+    },
     location: {
       tr: 'Ankara',
       en: 'Ankara',
@@ -51,6 +59,10 @@ export const projectsData: ProjectCard[] = [
     title: {
       tr: 'Endüstriyel Sistem Entegrasyonu',
       en: 'Industrial System Integration',
+    },
+    description: {
+      tr: 'İstanbul\'daki endüstriyel tesiste kapsamlı sistem entegrasyonu ve otomasyon çözümleri. Modern üretim süreçleri için akıllı sistemler ve kontrol panelleri kurulumu.',
+      en: 'Comprehensive system integration and automation solutions at an industrial facility in Istanbul. Installation of smart systems and control panels for modern production processes.',
     },
     location: {
       tr: 'İstanbul',
@@ -75,6 +87,10 @@ export const projectsData: ProjectCard[] = [
       tr: 'Akıllı Bina Otomasyon Projesi',
       en: 'Smart Building Automation Project',
     },
+    description: {
+      tr: 'İzmir\'de modern ofis binası için akıllı bina otomasyon sistemleri. Zayıf akım sistemleri, güvenlik, aydınlatma ve iklim kontrol sistemlerinin entegrasyonu.',
+      en: 'Smart building automation systems for a modern office building in Izmir. Integration of weak current systems, security, lighting, and climate control systems.',
+    },
     location: {
       tr: 'İzmir',
       en: 'Izmir',
@@ -97,6 +113,10 @@ export const projectsData: ProjectCard[] = [
     title: {
       tr: 'Veri Merkezi Elektrik Projesi',
       en: 'Data Center Electrical Project',
+    },
+    description: {
+      tr: 'Ankara\'da yeni veri merkezi için yüksek gerilim sistemleri ve güç dağıtım panoları kurulumu. Kesintisiz güç kaynakları ve yedekleme sistemleri ile kritik altyapı.',
+      en: 'Installation of high voltage systems and power distribution panels for a new data center in Ankara. Critical infrastructure with uninterruptible power supplies and backup systems.',
     },
     location: {
       tr: 'Ankara',
@@ -121,6 +141,10 @@ export const projectsData: ProjectCard[] = [
       tr: 'Hastane Elektronik Sistemleri',
       en: 'Hospital Electronic Systems',
     },
+    description: {
+      tr: 'Bursa\'da özel hastane için elektronik sistemler ve zayıf akım altyapısı. Hasta takip sistemleri, iletişim ağları ve güvenlik sistemlerinin kurulumu.',
+      en: 'Electronic systems and weak current infrastructure for a private hospital in Bursa. Installation of patient monitoring systems, communication networks, and security systems.',
+    },
     location: {
       tr: 'Bursa',
       en: 'Bursa',
@@ -143,6 +167,10 @@ export const projectsData: ProjectCard[] = [
     title: {
       tr: 'AVM Elektrik Taahhüt Projesi',
       en: 'Shopping Mall Electrical Contracting Project',
+    },
+    description: {
+      tr: 'İstanbul\'da büyük alışveriş merkezi için elektrik taahhüt işleri. Alçak gerilim sistemleri, dekoratif aydınlatma ve enerji yönetim sistemleri.',
+      en: 'Electrical contracting work for a large shopping mall in Istanbul. Low voltage systems, decorative lighting, and energy management systems.',
     },
     location: {
       tr: 'İstanbul',
