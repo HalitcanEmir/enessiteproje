@@ -12,6 +12,7 @@ export default function EditProjectPage() {
   
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [imagePreview, setImagePreview] = useState<string>('');
+  const [architectLogoPreview, setArchitectLogoPreview] = useState<string>('');
   const [formData, setFormData] = useState<ProjectCard | null>(null);
 
   useEffect(() => {
@@ -30,6 +31,9 @@ export default function EditProjectPage() {
       if (project) {
         setFormData(project);
         setImagePreview(project.imageUrl);
+        if (project.architect?.logo) {
+          setArchitectLogoPreview(project.architect.logo);
+        }
       } else {
         router.push('/tr/admin/projects');
       }
@@ -45,6 +49,27 @@ export default function EditProjectPage() {
         setImagePreview(base64String);
         if (formData) {
           setFormData({ ...formData, imageUrl: base64String });
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleArchitectLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        setArchitectLogoPreview(base64String);
+        if (formData) {
+          setFormData({ 
+            ...formData, 
+            architect: { 
+              ...formData.architect!, 
+              logo: base64String 
+            } 
+          });
         }
       };
       reader.readAsDataURL(file);
@@ -305,8 +330,58 @@ export default function EditProjectPage() {
             </select>
           </div>
 
+          {/* Architect Info Section */}
+          <div className="border-t border-gray-200 pt-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Mimar Bilgileri</h3>
+            
+            {/* Architect Name */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Mimar İsmi
+              </label>
+              <input
+                type="text"
+                value={formData?.architect?.name || ''}
+                onChange={(e) => setFormData({ 
+                  ...formData, 
+                  architect: { 
+                    ...formData.architect, 
+                    name: e.target.value,
+                    logo: formData.architect?.logo || ''
+                  } 
+                })}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Örn: Mimar Adı Soyadı"
+              />
+              <p className="mt-1 text-sm text-gray-500">Projeyi tasarlayan mimar/mimarlık firması ismi</p>
+            </div>
+
+            {/* Architect Logo */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Mimar Logosu
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleArchitectLogoUpload}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+              />
+              {architectLogoPreview && (
+                <div className="mt-4">
+                  <img
+                    src={architectLogoPreview}
+                    alt="Mimar Logo Preview"
+                    className="w-32 h-32 object-contain border border-gray-200 rounded-lg bg-white p-2"
+                  />
+                </div>
+              )}
+              <p className="mt-1 text-sm text-gray-500">Mimar/Mimarlık firmasının logosu (opsiyonel)</p>
+            </div>
+          </div>
+
           {/* Featured */}
-          <div className="flex items-center">
+          <div className="flex items-center border-t border-gray-200 pt-6">
             <input
               type="checkbox"
               id="featured"

@@ -24,6 +24,10 @@ export interface ProjectCard {
   };
   status: 'ongoing' | 'completed';
   featured: boolean;
+  architect?: {
+    name: string;
+    logo: string;
+  };
 }
 
 export const projectsData: ProjectCard[] = [

@@ -271,6 +271,33 @@ export default function ProjectDetailPage() {
                       </span>
                     </div>
                   )}
+
+                  {/* Architect Info */}
+                  {project.architect && (project.architect.name || project.architect.logo) && (
+                    <div className="pt-4 mt-4 border-t border-gray-200">
+                      <p className="text-sm text-gray-500 mb-3">
+                        {locale === 'tr' ? 'Proje Mimarı' : 'Project Architect'}
+                      </p>
+                      <div className="flex items-center gap-3">
+                        {project.architect.logo && (
+                          <div className="flex-shrink-0 w-16 h-16 bg-white rounded-lg border border-gray-200 p-2 flex items-center justify-center">
+                            <img
+                              src={project.architect.logo}
+                              alt={project.architect.name || 'Architect Logo'}
+                              className="w-full h-full object-contain"
+                            />
+                          </div>
+                        )}
+                        {project.architect.name && (
+                          <div className="flex-1">
+                            <p className="text-base font-semibold text-gray-900">
+                              {project.architect.name}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </motion.div>
             </div>
