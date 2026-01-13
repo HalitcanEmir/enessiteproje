@@ -213,17 +213,21 @@ export default function Navbar() {
                         <div
                           onMouseEnter={() => setIsServicesOpen(true)}
                           onMouseLeave={() => setIsServicesOpen(false)}
-                          className="absolute top-full left-0 mt-2 w-56 bg-[#0f1e2e] shadow-xl border border-[#1a3a5a]/50 backdrop-blur-md overflow-hidden rounded-lg"
+                          className="absolute top-full left-0 mt-2 w-72 bg-[#0f1e2e] shadow-2xl border border-[#1a3a5a]/50 backdrop-blur-md overflow-hidden rounded-xl"
                         >
                           <div className="py-2">
                             {servicesMenu.map((service, index) => (
                               <Link
                                 key={index}
                                 href={`/${locale}${service.href}`}
-                                className="block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-[#1a2a3a] transition-colors duration-150"
+                                className="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-[#1a2a3a] transition-all duration-200 group"
                                 onClick={() => setIsServicesOpen(false)}
                               >
-                                {service.title[locale as 'tr' | 'en']}
+                                <span className="text-lg group-hover:scale-110 transition-transform duration-200">{service.icon}</span>
+                                <span className="flex-1">{service.title[locale as 'tr' | 'en']}</span>
+                                <svg className="w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path d="M9 5l7 7-7 7" />
+                                </svg>
                               </Link>
                             ))}
                           </div>
@@ -333,15 +337,16 @@ export default function Navbar() {
                         </svg>
                       </button>
                       {isServicesMobileOpen && (
-                        <div className="pl-4 border-l border-[#1a3a5a] mt-1 mb-4">
+                        <div className="pl-4 border-l-2 border-blue-500/30 mt-2 mb-4 space-y-1">
                           {servicesMenu.map((service, index) => (
                             <Link
                               key={index}
                               href={`/${locale}${service.href}`}
                               onClick={() => setIsMenuOpen(false)}
-                              className="block px-4 py-3 text-sm text-gray-400 hover:text-white transition-colors duration-150"
+                              className="flex items-center gap-3 px-4 py-3 text-sm text-gray-400 hover:text-white hover:bg-[#1a2a3a] rounded-lg transition-all duration-150"
                             >
-                              {service.title[locale as 'tr' | 'en']}
+                              <span className="text-base">{service.icon}</span>
+                              <span>{service.title[locale as 'tr' | 'en']}</span>
                             </Link>
                           ))}
                         </div>
