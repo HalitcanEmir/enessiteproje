@@ -1,14 +1,47 @@
 'use client';
 
+import { useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function EngineeringPage() {
   const t = useTranslations('services.engineering');
   const tNav = useTranslations('nav');
   const locale = useLocale();
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
+  const servicesDetails = [
+    {
+      title: locale === 'tr' ? 'Elektrik-Elektronik Proje Tasarımı ve Çizimi' : 'Electrical-Electronic Project Design and Drawing',
+      description: locale === 'tr' 
+        ? 'AutoCAD ve Revit gibi modern programlar kullanarak elektrik ve elektronik sistemlerin detaylı proje çizimlerini hazırlıyoruz. Tek hat şemaları, montaj planları, pano şemaları ve tüm teknik detaylar standartlara uygun olarak üretilir.'
+        : 'We prepare detailed project drawings of electrical and electronic systems using modern programs such as AutoCAD and Revit. Single line diagrams, installation plans, panel diagrams and all technical details are produced in accordance with standards.'
+    },
+    {
+      title: locale === 'tr' ? 'AG/OG Enerji Dağıtım Sistemleri' : 'LV/MV Energy Distribution Systems',
+      description: locale === 'tr'
+        ? 'Alçak ve orta gerilim enerji dağıtım sistemlerinin tasarımı, kablo hesaplamaları, trafo merkezi projelendirmesi ve güç kalitesi analizleri yapılır. Kompanzasyon sistemleri ve topraklama hesaplamaları dahildir.'
+        : 'Design of low and medium voltage energy distribution systems, cable calculations, transformer substation design and power quality analysis are performed. Compensation systems and grounding calculations are included.'
+    },
+    {
+      title: locale === 'tr' ? 'Zayıf Akım Sistemleri Tasarımı' : 'Low Current Systems Design',
+      description: locale === 'tr'
+        ? 'Yangın algılama, güvenlik kamera, geçiş kontrol, data network altyapısı, ses ve görüntü sistemleri gibi tüm zayıf akım sistemlerinin projelendirilmesi ve entegrasyonu sağlanır.'
+        : 'All weak current systems such as fire detection, security cameras, access control, data network infrastructure, audio and video systems are designed and integrated.'
+    },
+    {
+      title: locale === 'tr' ? 'Aydınlatma ve Enerji Verimliliği Hesapları' : 'Lighting and Energy Efficiency Calculations',
+      description: locale === 'tr'
+        ? 'DIALux programı ile detaylı aydınlatma hesaplamaları, enerji tüketim analizleri ve verimlilik raporları hazırlanır. LED dönüşüm projeleri ve tasarruf önerileri sunulur.'
+        : 'Detailed lighting calculations with DIALux program, energy consumption analysis and efficiency reports are prepared. LED conversion projects and savings recommendations are offered.'
+    },
+  ];
+
+  const toggleExpand = (index: number) => {
+    setExpandedIndex(expandedIndex === index ? null : index);
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -53,29 +86,62 @@ export default function EngineeringPage() {
             {/* Main Content */}
             <div className="lg:col-span-8">
               
-              {/* Services List */}
+              {/* Services List - Expandable */}
               <div className="mb-12">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-gray-200">
                   {locale === 'tr' ? 'Hizmetlerimiz' : 'Our Services'}
                 </h2>
                 
-                <div className="space-y-4">
-                  {(t.raw('items') as string[]).map((item: string, index: number) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: index * 0.05 }}
-                      className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg"
-                    >
-                      <div className="flex-shrink-0 w-6 h-6 mt-0.5">
-                        <svg className="w-6 h-6 text-gray-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-                          <path d="M9 5l7 7-7 7" />
+                <div className="space-y-3">
+                  {servicesDetails.map((service, index) => (
+                    <div key={index} className="border border-gray-200 rounded-lg overflow-hidden">
+                      <button
+                        onClick={() => toggleExpand(index)}
+                        className="w-full flex items-center justify-between gap-4 p-4 bg-gray-50 hover:bg-gray-100 transition-colors text-left"
+                      >
+                        <div className="flex items-center gap-3 flex-1">
+                          <svg 
+                            className={`w-5 h-5 text-gray-400 flex-shrink-0 transition-transform duration-200 ${expandedIndex === index ? 'rotate-90' : ''}`}
+                            fill="none" 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round" 
+                            strokeWidth="2" 
+                            viewBox="0 0 24 24" 
+                            stroke="currentColor"
+                          >
+                            <path d="M9 5l7 7-7 7" />
+                          </svg>
+                          <span className="text-gray-900 font-medium">{service.title}</span>
+                        </div>
+                        <svg 
+                          className={`w-5 h-5 text-gray-400 flex-shrink-0 transition-transform duration-200 ${expandedIndex === index ? 'rotate-180' : ''}`}
+                          fill="none" 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round" 
+                          strokeWidth="2" 
+                          viewBox="0 0 24 24" 
+                          stroke="currentColor"
+                        >
+                          <path d="M19 9l-7 7-7-7" />
                         </svg>
-                      </div>
-                      <p className="text-gray-700 leading-relaxed">{item}</p>
-                    </motion.div>
+                      </button>
+                      
+                      <AnimatePresence>
+                        {expandedIndex === index && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="p-4 bg-white border-t border-gray-200">
+                              <p className="text-gray-700 leading-relaxed">{service.description}</p>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
                   ))}
                 </div>
               </div>

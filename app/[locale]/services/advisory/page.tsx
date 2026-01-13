@@ -1,14 +1,47 @@
 'use client';
 
+import { useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function AdvisoryPage() {
   const t = useTranslations('services.advisory');
   const tNav = useTranslations('nav');
   const locale = useLocale();
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
+  const servicesDetails = [
+    {
+      title: locale === 'tr' ? 'Teknik Fizibilite Çalışmaları' : 'Technical Feasibility Studies',
+      description: locale === 'tr' 
+        ? 'Yeni yatırımlar ve projeler için teknik fizibilite raporları hazırlanır. Alternatif çözümler analiz edilir, avantaj ve dezavantajlar ortaya konur. En uygun çözüm önerilir.'
+        : 'Technical feasibility reports are prepared for new investments and projects. Alternative solutions are analyzed, advantages and disadvantages are revealed. The most suitable solution is recommended.'
+    },
+    {
+      title: locale === 'tr' ? 'Maliyet Analizi ve Bütçe Planlama' : 'Cost Analysis and Budget Planning',
+      description: locale === 'tr'
+        ? 'Projelerin detaylı maliyet analizleri yapılır. Malzeme, işçilik ve diğer giderler hesaplanır. Yatırım bütçesi ve finansman planları oluşturulur.'
+        : 'Detailed cost analysis of projects is made. Material, labor and other expenses are calculated. Investment budget and financing plans are created.'
+    },
+    {
+      title: locale === 'tr' ? 'Sistem Seçimi ve Kurulum Danışmanlığı' : 'System Selection and Installation Consultancy',
+      description: locale === 'tr'
+        ? 'İhtiyaca uygun ekipman ve sistem seçimi için danışmanlık verilir. Tedarikçi araştırması, teknik karşılaştırma ve karar destek çalışmaları yürütülür.'
+        : 'Consultancy is provided for equipment and system selection according to needs. Supplier research, technical comparison and decision support studies are carried out.'
+    },
+    {
+      title: locale === 'tr' ? 'Enerji Verimliliği ve Optimizasyon Önerileri' : 'Energy Efficiency and Optimization Recommendations',
+      description: locale === 'tr'
+        ? 'Mevcut tesislerin enerji tüketim analizleri yapılır. Verimlilik artırıcı önlemler belirlenir ve yatırım geri dönüş hesaplamaları sunulur.'
+        : 'Energy consumption analysis of existing facilities is made. Efficiency-enhancing measures are determined and return on investment calculations are presented.'
+    },
+  ];
+
+  const toggleExpand = (index: number) => {
+    setExpandedIndex(expandedIndex === index ? null : index);
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -16,7 +49,7 @@ export default function AdvisoryPage() {
       <section className="relative w-full h-[45vh] min-h-[400px] max-h-[500px] overflow-hidden bg-gray-900">
         <div className="absolute inset-0">
           <Image
-            src="/images/Gemini_Generated_Image_bd6k1lbd6k1lbd6k.png"
+            src="/images/advisory-hero.jpg"
             alt="Advisory Services"
             fill
             className="object-cover opacity-40"
@@ -53,29 +86,62 @@ export default function AdvisoryPage() {
             {/* Main Content */}
             <div className="lg:col-span-8">
               
-              {/* Services List */}
+              {/* Services List - Expandable */}
               <div className="mb-12">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-gray-200">
                   {locale === 'tr' ? 'Hizmetlerimiz' : 'Our Services'}
                 </h2>
                 
-                <div className="space-y-4">
-                  {(t.raw('items') as string[]).map((item: string, index: number) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: index * 0.05 }}
-                      className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg"
-                    >
-                      <div className="flex-shrink-0 w-6 h-6 mt-0.5">
-                        <svg className="w-6 h-6 text-gray-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-                          <path d="M9 5l7 7-7 7" />
+                <div className="space-y-3">
+                  {servicesDetails.map((service, index) => (
+                    <div key={index} className="border border-gray-200 rounded-lg overflow-hidden">
+                      <button
+                        onClick={() => toggleExpand(index)}
+                        className="w-full flex items-center justify-between gap-4 p-4 bg-gray-50 hover:bg-gray-100 transition-colors text-left"
+                      >
+                        <div className="flex items-center gap-3 flex-1">
+                          <svg 
+                            className={`w-5 h-5 text-gray-400 flex-shrink-0 transition-transform duration-200 ${expandedIndex === index ? 'rotate-90' : ''}`}
+                            fill="none" 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round" 
+                            strokeWidth="2" 
+                            viewBox="0 0 24 24" 
+                            stroke="currentColor"
+                          >
+                            <path d="M9 5l7 7-7 7" />
+                          </svg>
+                          <span className="text-gray-900 font-medium">{service.title}</span>
+                        </div>
+                        <svg 
+                          className={`w-5 h-5 text-gray-400 flex-shrink-0 transition-transform duration-200 ${expandedIndex === index ? 'rotate-180' : ''}`}
+                          fill="none" 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round" 
+                          strokeWidth="2" 
+                          viewBox="0 0 24 24" 
+                          stroke="currentColor"
+                        >
+                          <path d="M19 9l-7 7-7-7" />
                         </svg>
-                      </div>
-                      <p className="text-gray-700 leading-relaxed">{item}</p>
-                    </motion.div>
+                      </button>
+                      
+                      <AnimatePresence>
+                        {expandedIndex === index && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="p-4 bg-white border-t border-gray-200">
+                              <p className="text-gray-700 leading-relaxed">{service.description}</p>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -83,7 +149,7 @@ export default function AdvisoryPage() {
               {/* Process */}
               <div className="mb-12">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-gray-200">
-                  {locale === 'tr' ? 'Danışmanlık Süreci' : 'Advisory Process'}
+                  {locale === 'tr' ? 'Çalışma Sürecimiz' : 'Our Work Process'}
                 </h2>
                 
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -104,15 +170,15 @@ export default function AdvisoryPage() {
               {/* Deliverables */}
               <div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-gray-200">
-                  {locale === 'tr' ? 'Danışmanlık Çıktıları' : 'Advisory Outputs'}
+                  {locale === 'tr' ? 'Çıktılarımız' : 'Our Deliverables'}
                 </h2>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {[
                     { title: locale === 'tr' ? 'Fizibilite Raporları' : 'Feasibility Reports', desc: 'PDF Format' },
-                    { title: locale === 'tr' ? 'Maliyet Analizleri' : 'Cost Analysis', desc: 'Excel Format' },
+                    { title: locale === 'tr' ? 'Maliyet Analizleri' : 'Cost Analysis', desc: 'Excel/PDF' },
                     { title: locale === 'tr' ? 'Strateji Belgeleri' : 'Strategy Documents', desc: 'Word/PDF' },
-                    { title: locale === 'tr' ? 'Uygulama Planları' : 'Implementation Plans', desc: 'PDF/Excel' },
+                    { title: locale === 'tr' ? 'Uygulama Planları' : 'Implementation Plans', desc: 'Excel/PDF' },
                   ].map((item, idx) => (
                     <div key={idx} className="p-4 border border-gray-200 rounded-lg">
                       <h3 className="font-semibold text-gray-900 mb-1">{item.title}</h3>
@@ -134,8 +200,8 @@ export default function AdvisoryPage() {
                   </h3>
                   <p className="text-gray-300 mb-6 text-sm leading-relaxed">
                     {locale === 'tr' 
-                      ? 'Projeniz için detaylı bilgi ve teklif almak üzere bizimle iletişime geçin.'
-                      : 'Contact us for detailed information and a quote for your project.'}
+                      ? 'Projeniz için danışmanlık hizmeti almak üzere iletişime geçin.'
+                      : 'Contact us for advisory services for your project.'}
                   </p>
                   <Link
                     href={`/${locale}/contact`}
@@ -145,7 +211,7 @@ export default function AdvisoryPage() {
                   </Link>
                 </div>
 
-                {/* Standards */}
+                {/* Expertise */}
                 <div className="border border-gray-200 rounded-lg p-6">
                   <h3 className="font-semibold text-gray-900 mb-4">
                     {locale === 'tr' ? 'Uzmanlık Alanlarımız' : 'Our Expertise'}
@@ -156,9 +222,9 @@ export default function AdvisoryPage() {
                       locale === 'tr' ? 'Verimlilik' : 'Efficiency',
                       locale === 'tr' ? 'Maliyet' : 'Cost',
                       locale === 'tr' ? 'Sistem' : 'System'
-                    ].map((std, idx) => (
+                    ].map((item, idx) => (
                       <span key={idx} className="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded">
-                        {std}
+                        {item}
                       </span>
                     ))}
                   </div>
@@ -172,11 +238,11 @@ export default function AdvisoryPage() {
                   <ul className="space-y-3 text-sm text-gray-600">
                     <li className="flex items-start gap-2">
                       <span className="text-gray-400">•</span>
-                      <span>{locale === 'tr' ? 'Uzman danışman kadrosu' : 'Expert consultant team'}</span>
+                      <span>{locale === 'tr' ? 'Stratejik yaklaşım' : 'Strategic approach'}</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-gray-400">•</span>
-                      <span>{locale === 'tr' ? 'Veri odaklı analizler' : 'Data-driven analysis'}</span>
+                      <span>{locale === 'tr' ? 'Detaylı analiz' : 'Detailed analysis'}</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-gray-400">•</span>

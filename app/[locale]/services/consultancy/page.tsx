@@ -1,14 +1,47 @@
 'use client';
 
+import { useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function ConsultancyPage() {
   const t = useTranslations('services.consultancy');
   const tNav = useTranslations('nav');
   const locale = useLocale();
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
+  const servicesDetails = [
+    {
+      title: locale === 'tr' ? 'Proje Denetim ve Kontrol Hizmetleri' : 'Project Supervision and Control Services',
+      description: locale === 'tr' 
+        ? 'Elektrik ve elektronik sistemlerin uygulama sürecinde proje uygunluğunun kontrolü, montaj denetimi ve işletmeye alma testleri yapılır. Sahada düzenli takip ve raporlama sağlanır.'
+        : 'Project compliance control, installation supervision and commissioning tests are performed during the application process of electrical and electronic systems. Regular monitoring and reporting are provided on site.'
+    },
+    {
+      title: locale === 'tr' ? 'Mevzuat Uyumluluk Danışmanlığı' : 'Regulatory Compliance Consultancy',
+      description: locale === 'tr'
+        ? 'Elektrik tesisatı yönetmeliği, iş sağlığı ve güvenliği mevzuatı, yangın güvenliği standartları gibi konularda uyumluluk çalışmaları yürütülür. Eksiklikler tespit edilir ve çözüm önerileri sunulur.'
+        : 'Compliance work is carried out on issues such as electrical installation regulations, occupational health and safety legislation, and fire safety standards. Deficiencies are identified and solutions are offered.'
+    },
+    {
+      title: locale === 'tr' ? 'Teknik Süreç Yönetimi' : 'Technical Process Management',
+      description: locale === 'tr'
+        ? 'Projeden uygulamaya kadar tüm teknik süreçlerin yönetimi, koordinasyonu ve takibi sağlanır. Müteahhitler, tedarikçiler ve diğer paydaşlarla koordinasyon kurulur.'
+        : 'Management, coordination and monitoring of all technical processes from project to implementation are provided. Coordination with contractors, suppliers and other stakeholders is established.'
+    },
+    {
+      title: locale === 'tr' ? 'Kalite Güvence ve Test Hizmetleri' : 'Quality Assurance and Testing Services',
+      description: locale === 'tr'
+        ? 'Tamamlanan sistemlerin fonksiyon testleri, performans ölçümleri ve standartlara uygunluk testleri gerçekleştirilir. Test raporları ve protokoller düzenlenir.'
+        : 'Function tests, performance measurements and compliance tests of completed systems are carried out. Test reports and protocols are prepared.'
+    },
+  ];
+
+  const toggleExpand = (index: number) => {
+    setExpandedIndex(expandedIndex === index ? null : index);
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -16,7 +49,7 @@ export default function ConsultancyPage() {
       <section className="relative w-full h-[45vh] min-h-[400px] max-h-[500px] overflow-hidden bg-gray-900">
         <div className="absolute inset-0">
           <Image
-            src="/images/Gemini_Generated_Image_bd6k1lbd6k1lbd6k.png"
+            src="/images/consultancy-hero.jpg"
             alt="Consultancy Services"
             fill
             className="object-cover opacity-40"
@@ -53,29 +86,62 @@ export default function ConsultancyPage() {
             {/* Main Content */}
             <div className="lg:col-span-8">
               
-              {/* Services List */}
+              {/* Services List - Expandable */}
               <div className="mb-12">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-gray-200">
                   {locale === 'tr' ? 'Hizmetlerimiz' : 'Our Services'}
                 </h2>
                 
-                <div className="space-y-4">
-                  {(t.raw('items') as string[]).map((item: string, index: number) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: index * 0.05 }}
-                      className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg"
-                    >
-                      <div className="flex-shrink-0 w-6 h-6 mt-0.5">
-                        <svg className="w-6 h-6 text-gray-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-                          <path d="M9 5l7 7-7 7" />
+                <div className="space-y-3">
+                  {servicesDetails.map((service, index) => (
+                    <div key={index} className="border border-gray-200 rounded-lg overflow-hidden">
+                      <button
+                        onClick={() => toggleExpand(index)}
+                        className="w-full flex items-center justify-between gap-4 p-4 bg-gray-50 hover:bg-gray-100 transition-colors text-left"
+                      >
+                        <div className="flex items-center gap-3 flex-1">
+                          <svg 
+                            className={`w-5 h-5 text-gray-400 flex-shrink-0 transition-transform duration-200 ${expandedIndex === index ? 'rotate-90' : ''}`}
+                            fill="none" 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round" 
+                            strokeWidth="2" 
+                            viewBox="0 0 24 24" 
+                            stroke="currentColor"
+                          >
+                            <path d="M9 5l7 7-7 7" />
+                          </svg>
+                          <span className="text-gray-900 font-medium">{service.title}</span>
+                        </div>
+                        <svg 
+                          className={`w-5 h-5 text-gray-400 flex-shrink-0 transition-transform duration-200 ${expandedIndex === index ? 'rotate-180' : ''}`}
+                          fill="none" 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round" 
+                          strokeWidth="2" 
+                          viewBox="0 0 24 24" 
+                          stroke="currentColor"
+                        >
+                          <path d="M19 9l-7 7-7-7" />
                         </svg>
-                      </div>
-                      <p className="text-gray-700 leading-relaxed">{item}</p>
-                    </motion.div>
+                      </button>
+                      
+                      <AnimatePresence>
+                        {expandedIndex === index && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="p-4 bg-white border-t border-gray-200">
+                              <p className="text-gray-700 leading-relaxed">{service.description}</p>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -83,13 +149,13 @@ export default function ConsultancyPage() {
               {/* Process */}
               <div className="mb-12">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-gray-200">
-                  {locale === 'tr' ? 'Denetim Süreci' : 'Inspection Process'}
+                  {locale === 'tr' ? 'Çalışma Sürecimiz' : 'Our Work Process'}
                 </h2>
                 
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                   {[
                     { num: '01', title: locale === 'tr' ? 'Ön İnceleme' : 'Preliminary Review' },
-                    { num: '02', title: locale === 'tr' ? 'Saha Denetimi' : 'Field Inspection' },
+                    { num: '02', title: locale === 'tr' ? 'Saha Denetimi' : 'Field Supervision' },
                     { num: '03', title: locale === 'tr' ? 'Raporlama' : 'Reporting' },
                     { num: '04', title: locale === 'tr' ? 'Takip' : 'Follow-up' },
                   ].map((step, idx) => (
@@ -104,14 +170,14 @@ export default function ConsultancyPage() {
               {/* Deliverables */}
               <div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-gray-200">
-                  {locale === 'tr' ? 'Denetim Çıktıları' : 'Inspection Outputs'}
+                  {locale === 'tr' ? 'Raporlarımız' : 'Our Reports'}
                 </h2>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {[
-                    { title: locale === 'tr' ? 'Denetim Raporları' : 'Inspection Reports', desc: 'PDF Format' },
-                    { title: locale === 'tr' ? 'Uygunsuzluk Listesi' : 'Non-Conformity List', desc: 'Excel Format' },
-                    { title: locale === 'tr' ? 'Kontrol Listeleri' : 'Checklists', desc: 'PDF Format' },
+                    { title: locale === 'tr' ? 'Denetim Raporları' : 'Supervision Reports', desc: 'PDF Format' },
+                    { title: locale === 'tr' ? 'Uygunsuzluk Listesi' : 'Non-conformity List', desc: 'Excel Format' },
+                    { title: locale === 'tr' ? 'Kontrol Listeleri' : 'Checklists', desc: 'PDF/Excel' },
                     { title: locale === 'tr' ? 'Aksiyon Planları' : 'Action Plans', desc: 'Word/PDF' },
                   ].map((item, idx) => (
                     <div key={idx} className="p-4 border border-gray-200 rounded-lg">
@@ -134,8 +200,8 @@ export default function ConsultancyPage() {
                   </h3>
                   <p className="text-gray-300 mb-6 text-sm leading-relaxed">
                     {locale === 'tr' 
-                      ? 'Projeniz için detaylı bilgi ve teklif almak üzere bizimle iletişime geçin.'
-                      : 'Contact us for detailed information and a quote for your project.'}
+                      ? 'Projeniz için denetim ve danışmanlık hizmeti almak üzere iletişime geçin.'
+                      : 'Contact us for supervision and consultancy services for your project.'}
                   </p>
                   <Link
                     href={`/${locale}/contact`}
@@ -167,7 +233,7 @@ export default function ConsultancyPage() {
                   <ul className="space-y-3 text-sm text-gray-600">
                     <li className="flex items-start gap-2">
                       <span className="text-gray-400">•</span>
-                      <span>{locale === 'tr' ? 'Deneyimli denetçi kadrosu' : 'Experienced inspector team'}</span>
+                      <span>{locale === 'tr' ? 'Deneyimli denetim ekibi' : 'Experienced supervision team'}</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-gray-400">•</span>
@@ -175,7 +241,7 @@ export default function ConsultancyPage() {
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-gray-400">•</span>
-                      <span>{locale === 'tr' ? 'Mevzuat uyumluluğu' : 'Regulatory compliance'}</span>
+                      <span>{locale === 'tr' ? 'Sürekli takip' : 'Continuous monitoring'}</span>
                     </li>
                   </ul>
                 </div>
