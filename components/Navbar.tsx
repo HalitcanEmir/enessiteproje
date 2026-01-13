@@ -213,24 +213,54 @@ export default function Navbar() {
                         <div
                           onMouseEnter={() => setIsServicesOpen(true)}
                           onMouseLeave={() => setIsServicesOpen(false)}
-                          className="absolute top-full left-0 mt-2 w-72 bg-[#0f1e2e] shadow-2xl border border-[#1a3a5a]/50 backdrop-blur-md overflow-hidden rounded-xl"
+                          className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[320px] bg-gradient-to-br from-[#0a1929] via-[#0f1e2e] to-[#0a1929] shadow-[0_20px_60px_rgba(0,0,0,0.5)] border border-blue-500/20 backdrop-blur-xl overflow-hidden rounded-2xl"
+                          style={{
+                            animation: 'slideDown 0.3s ease-out',
+                          }}
                         >
-                          <div className="py-2">
+                          {/* Glow Effect */}
+                          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-transparent pointer-events-none" />
+                          
+                          <div className="relative py-3">
                             {servicesMenu.map((service, index) => (
                               <Link
                                 key={index}
                                 href={`/${locale}${service.href}`}
-                                className="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-[#1a2a3a] transition-all duration-200 group"
+                                className="relative flex items-center gap-4 px-5 py-4 text-sm text-gray-300 hover:text-white transition-all duration-300 group overflow-hidden"
                                 onClick={() => setIsServicesOpen(false)}
                               >
-                                <span className="text-lg group-hover:scale-110 transition-transform duration-200">{service.icon}</span>
-                                <span className="flex-1">{service.title[locale as 'tr' | 'en']}</span>
-                                <svg className="w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                                {/* Hover Background with Gradient */}
+                                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/0 via-blue-600/10 to-blue-600/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                <div className="absolute inset-0 border-l-2 border-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                
+                                {/* Icon with Background */}
+                                <div className="relative flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-[#1a2a3a] to-[#0f1e2e] border border-blue-500/20 group-hover:border-blue-500/50 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg flex-shrink-0">
+                                  <span className="text-2xl group-hover:scale-110 transition-transform duration-300">{service.icon}</span>
+                                </div>
+                                
+                                {/* Text */}
+                                <span className="relative flex-1 font-medium group-hover:translate-x-1 transition-transform duration-300">
+                                  {service.title[locale as 'tr' | 'en']}
+                                </span>
+                                
+                                {/* Arrow */}
+                                <svg 
+                                  className="relative w-5 h-5 text-blue-400 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 flex-shrink-0" 
+                                  fill="none" 
+                                  strokeLinecap="round" 
+                                  strokeLinejoin="round" 
+                                  strokeWidth="2.5" 
+                                  viewBox="0 0 24 24" 
+                                  stroke="currentColor"
+                                >
                                   <path d="M9 5l7 7-7 7" />
                                 </svg>
                               </Link>
                             ))}
                           </div>
+                          
+                          {/* Bottom Glow */}
+                          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
                         </div>
                       )}
                     </div>
@@ -337,16 +367,40 @@ export default function Navbar() {
                         </svg>
                       </button>
                       {isServicesMobileOpen && (
-                        <div className="pl-4 border-l-2 border-blue-500/30 mt-2 mb-4 space-y-1">
+                        <div className="pl-2 mt-3 mb-4 space-y-2">
                           {servicesMenu.map((service, index) => (
                             <Link
                               key={index}
                               href={`/${locale}${service.href}`}
                               onClick={() => setIsMenuOpen(false)}
-                              className="flex items-center gap-3 px-4 py-3 text-sm text-gray-400 hover:text-white hover:bg-[#1a2a3a] rounded-lg transition-all duration-150"
+                              className="relative flex items-center gap-4 px-4 py-4 text-sm text-gray-300 hover:text-white rounded-xl transition-all duration-300 group overflow-hidden"
                             >
-                              <span className="text-base">{service.icon}</span>
-                              <span>{service.title[locale as 'tr' | 'en']}</span>
+                              {/* Hover Background */}
+                              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/0 via-blue-600/10 to-blue-600/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                              <div className="absolute inset-0 border-l-2 border-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                              
+                              {/* Icon with Background */}
+                              <div className="relative flex items-center justify-center w-11 h-11 rounded-xl bg-gradient-to-br from-[#1a2a3a] to-[#0f1e2e] border border-blue-500/20 group-hover:border-blue-500/50 group-hover:scale-105 transition-all duration-300 shadow-lg flex-shrink-0">
+                                <span className="text-xl">{service.icon}</span>
+                              </div>
+                              
+                              {/* Text */}
+                              <span className="relative flex-1 font-medium group-hover:translate-x-1 transition-transform duration-300">
+                                {service.title[locale as 'tr' | 'en']}
+                              </span>
+                              
+                              {/* Arrow */}
+                              <svg 
+                                className="relative w-4 h-4 text-blue-400 opacity-0 group-hover:opacity-100 transition-all duration-300 flex-shrink-0" 
+                                fill="none" 
+                                strokeLinecap="round" 
+                                strokeLinejoin="round" 
+                                strokeWidth="2.5" 
+                                viewBox="0 0 24 24" 
+                                stroke="currentColor"
+                              >
+                                <path d="M9 5l7 7-7 7" />
+                              </svg>
                             </Link>
                           ))}
                         </div>
