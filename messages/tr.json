@@ -48,77 +48,36 @@
   },
   "services": {
     "title": "Hizmetlerimiz",
-    "subtitle": "Elektrik ve elektronik alanında kapsamlı çözümler sunuyoruz",
-    "electrical": {
-      "title": "Elektrik Taahhüt",
-      "description": "Alçak ve orta gerilim elektrik tesisatı, güç dağıtım sistemleri ve enerji altyapısı çözümleri",
+    "description": "Geniş hizmet yelpazemizle ihtiyaçlarınıza çözüm sunuyoruz.",
+    "subtitle": "Geniş hizmet yelpazemizle ihtiyaçlarınıza çözüm sunuyoruz.",
+    "engineering": {
+      "title": "Mühendislik Hizmetleri",
+      "description": "Tasarım ve teknik üretim gücümüz; fikirden uygulama projesine uçtan uca.",
       "items": [
-        "AG/OG Elektrik Tesisat Montajı",
-        "Güç Dağıtım ve Kompanzasyon Sistemleri",
-        "Trafo Merkezi Kurulumu",
-        "Aydınlatma Sistemleri",
-        "Jeneratör ve UPS Sistemleri",
-        "Enerji Nakil Hatları"
+        "Elektrik-Elektronik Proje Tasarımı ve Çizimi",
+        "AG/OG Enerji Dağıtım Sistemleri",
+        "Zayıf Akım Sistemleri Tasarımı",
+        "Aydınlatma ve Enerji Verimliliği Hesapları"
       ]
     },
-    "electronic": {
-      "title": "Elektronik Sistemler",
-      "description": "Endüstriyel otomasyon, kontrol sistemleri ve elektronik cihaz entegrasyonu",
+    "consultancy": {
+      "title": "Müşavirlik Hizmetleri",
+      "description": "Denetim, mevzuat ve süreç yönetimi; projelerde güvenli ilerleyiş.",
       "items": [
-        "Endüstriyel Otomasyon Sistemleri",
-        "PLC ve SCADA Programlama",
-        "Kontrol Panoları İmalatı",
-        "Motor Sürücü Sistemleri",
-        "Proses Kontrol ve Monitoring",
-        "Elektronik Cihaz Kurulumu"
+        "Proje Denetim ve Kontrol Hizmetleri",
+        "Mevzuat Uyumluluk Danışmanlığı",
+        "Teknik Süreç Yönetimi",
+        "Kalite Güvence ve Test Hizmetleri"
       ]
     },
-    "smartBuilding": {
-      "title": "Akıllı Bina Sistemleri",
-      "description": "Modern bina otomasyon sistemleri, enerji yönetimi ve akıllı kontrol çözümleri",
+    "advisory": {
+      "title": "Danışmanlık Hizmetleri",
+      "description": "Fizibilite, maliyet ve sistem seçimi; doğru yatırım kararları için.",
       "items": [
-        "BMS (Building Management System)",
-        "Akıllı Aydınlatma Kontrol",
-        "HVAC Otomasyon Sistemleri",
-        "Enerji İzleme ve Yönetimi",
-        "Akıllı Perde ve Güneş Kontrol",
-        "Entegre Bina Yönetimi"
-      ]
-    },
-    "weakCurrent": {
-      "title": "Zayıf Akım Sistemleri",
-      "description": "Güvenlik, iletişim ve veri altyapısı sistemlerinin kurulumu ve entegrasyonu",
-      "items": [
-        "Yangın Algılama ve Söndürme Sistemleri",
-        "Güvenlik Kamera Sistemleri (CCTV)",
-        "Geçiş Kontrol ve Alarm Sistemleri",
-        "Yapısal Kablolama (Data Network)",
-        "Ses ve Görüntü Sistemleri",
-        "Nurse Call ve Hastane Sistemleri"
-      ]
-    },
-    "maintenance": {
-      "title": "Bakım ve Onarım",
-      "description": "Periyodik bakım, arıza giderme ve sistem modernizasyonu hizmetleri",
-      "items": [
-        "Periyodik Bakım Hizmetleri",
-        "Arıza Tespit ve Onarım",
-        "Termal Kamera ile Kontrol",
-        "Elektrik Panosu Revizyon",
-        "Test ve Ölçüm Hizmetleri",
-        "7/24 Teknik Destek"
-      ]
-    },
-    "projectManagement": {
-      "title": "Proje Yönetimi",
-      "description": "Profesyonel proje yönetimi, koordinasyon ve teknik danışmanlık hizmetleri",
-      "items": [
-        "Proje Planlama ve Koordinasyon",
-        "Saha Yönetimi ve Denetim",
-        "Teknik Çizim ve Dokümantasyon",
-        "Maliyet Kontrolü ve Raporlama",
-        "Alt Yüklenici Yönetimi",
-        "As-Built Proje Hazırlama"
+        "Teknik Fizibilite Çalışmaları",
+        "Maliyet Analizi ve Bütçe Planlama",
+        "Sistem Seçimi ve Kurulum Danışmanlığı",
+        "Enerji Verimliliği ve Optimizasyon Önerileri"
       ]
     }
   },
@@ -173,3 +132,4 @@
     "description": "Birlikte çalıştığımız değerli kurum ve kuruluşlar"
   }
 }
+
