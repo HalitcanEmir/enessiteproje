@@ -190,30 +190,28 @@ export default function Navbar() {
                 const active = isActive(item.href);
                 if (item.hasDropdown) {
                   return (
-                    <div key={item.href} ref={servicesRef} className="relative">
-                      <div
-                        onMouseEnter={() => setIsServicesOpen(true)}
-                        onMouseLeave={() => setIsServicesOpen(false)}
-                        className="relative"
+                    <div 
+                      key={item.href} 
+                      ref={servicesRef} 
+                      className="relative"
+                      onMouseEnter={() => setIsServicesOpen(true)}
+                      onMouseLeave={() => setIsServicesOpen(false)}
+                    >
+                      <Link
+                        href={item.href}
+                        className={`px-3 py-2 text-sm font-medium uppercase tracking-wide transition-opacity duration-200 ${
+                          isScrolled
+                            ? 'text-white hover:opacity-80'
+                            : 'text-white hover:opacity-80'
+                        }`}
                       >
-                        <Link
-                          href={item.href}
-                          className={`px-3 py-2 text-sm font-medium uppercase tracking-wide transition-opacity duration-200 ${
-                            isScrolled
-                              ? 'text-white hover:opacity-80'
-                              : 'text-white hover:opacity-80'
-                          }`}
-                        >
-                          {item.label}
-                        </Link>
-                      </div>
+                        {item.label}
+                      </Link>
 
                       {/* Dropdown Menu */}
                       {isServicesOpen && (
                         <div
-                          onMouseEnter={() => setIsServicesOpen(true)}
-                          onMouseLeave={() => setIsServicesOpen(false)}
-                          className={`absolute top-full left-0 mt-2 w-64 overflow-hidden transition-all duration-300 ${
+                          className={`absolute top-full left-0 w-64 overflow-hidden transition-all duration-300 ${
                             isScrolled
                               ? 'bg-[#0a1929]/95 backdrop-blur-lg shadow-xl border border-white/10 rounded-xl'
                               : 'bg-black/40 backdrop-blur-md shadow-2xl border border-white/5 rounded-lg'
