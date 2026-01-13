@@ -71,7 +71,7 @@ export default function ProjectsPage() {
           </div>
           
           {/* Filters Section - At Bottom of Hero */}
-          <div className="pb-6">
+          <div className="pb-8 pt-4">
             <div className="flex items-center justify-center overflow-x-auto scrollbar-hide">
               <div className="inline-flex items-center gap-2 md:gap-3 px-6 py-3 rounded-xl bg-white/95 backdrop-blur-md shadow-lg border border-white/20">
                 {filters.map((filter) => (
