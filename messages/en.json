@@ -48,36 +48,77 @@
   },
   "services": {
     "title": "Our Services",
-    "description": "We offer solutions to your needs with our wide range of services.",
-    "subtitle": "We deliver solutions tailored to your needs with our wide range of services.",
-    "engineering": {
-      "title": "Engineering",
-      "description": "Our design and technical production capabilities; from concept to implementation, end to end.",
+    "subtitle": "Comprehensive solutions in electrical and electronic fields",
+    "electrical": {
+      "title": "Electrical Contracting",
+      "description": "Low and medium voltage electrical installations, power distribution systems, and energy infrastructure solutions",
       "items": [
-        "Electrical-Electronic Project Design and Drawing",
-        "LV/HV Energy Distribution Systems",
-        "Weak Current Systems Design",
-        "Lighting and Energy Efficiency Calculations"
+        "LV/MV Electrical Installation",
+        "Power Distribution & Compensation Systems",
+        "Transformer Substation Installation",
+        "Lighting Systems",
+        "Generator and UPS Systems",
+        "Power Transmission Lines"
       ]
     },
-    "consultancy": {
-      "title": "Consultancy",
-      "description": "Supervision, compliance and process management; safe progress in projects.",
+    "electronic": {
+      "title": "Electronic Systems",
+      "description": "Industrial automation, control systems, and electronic device integration",
       "items": [
-        "Project Supervision and Control Services",
-        "Regulatory Compliance Consulting",
-        "Technical Process Management",
-        "Quality Assurance and Testing Services"
+        "Industrial Automation Systems",
+        "PLC and SCADA Programming",
+        "Control Panel Manufacturing",
+        "Motor Drive Systems",
+        "Process Control and Monitoring",
+        "Electronic Device Installation"
       ]
     },
-    "advisory": {
-      "title": "Advisory",
-      "description": "Feasibility, cost and system selection; for the right investment decisions.",
+    "smartBuilding": {
+      "title": "Smart Building Systems",
+      "description": "Modern building automation systems, energy management, and smart control solutions",
       "items": [
-        "Technical Feasibility Studies",
-        "Cost Analysis and Budget Planning",
-        "System Selection and Installation Consulting",
-        "Energy Efficiency and Optimization Recommendations"
+        "BMS (Building Management System)",
+        "Smart Lighting Control",
+        "HVAC Automation Systems",
+        "Energy Monitoring and Management",
+        "Smart Shading and Sun Control",
+        "Integrated Building Management"
+      ]
+    },
+    "weakCurrent": {
+      "title": "Weak Current Systems",
+      "description": "Installation and integration of security, communication, and data infrastructure systems",
+      "items": [
+        "Fire Detection and Suppression Systems",
+        "CCTV Security Camera Systems",
+        "Access Control and Alarm Systems",
+        "Structured Cabling (Data Network)",
+        "Audio and Video Systems",
+        "Nurse Call and Hospital Systems"
+      ]
+    },
+    "maintenance": {
+      "title": "Maintenance & Repair",
+      "description": "Periodic maintenance, troubleshooting, and system modernization services",
+      "items": [
+        "Periodic Maintenance Services",
+        "Fault Detection and Repair",
+        "Thermal Camera Inspection",
+        "Electrical Panel Revision",
+        "Test and Measurement Services",
+        "24/7 Technical Support"
+      ]
+    },
+    "projectManagement": {
+      "title": "Project Management",
+      "description": "Professional project management, coordination, and technical consulting services",
+      "items": [
+        "Project Planning and Coordination",
+        "Site Management and Supervision",
+        "Technical Drawing and Documentation",
+        "Cost Control and Reporting",
+        "Subcontractor Management",
+        "As-Built Project Preparation"
       ]
     }
   },
@@ -132,4 +173,3 @@
     "description": "Valued institutions and organizations we work with"
   }
 }
-
