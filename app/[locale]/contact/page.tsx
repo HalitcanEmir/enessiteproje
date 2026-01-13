@@ -84,10 +84,11 @@ export default function ContactPage() {
     }
   };
 
-  // Placeholder phone and WhatsApp numbers (should be replaced with real ones)
-  const phoneNumber = '+905551234567';
-  const whatsappNumber = '+905551234567';
-  const mapUrl = 'https://www.google.com/maps?q=Istanbul,Turkey';
+  // Contact information
+  const phoneNumber = '+905302290486';
+  const whatsappNumber = '+905302290486';
+  const address = 'Yeniçağ, Ragıp Tüzün Cd. Alemdar İş Merkezi No:136 D:173, 06000 Yenimahalle/Ankara';
+  const mapUrl = 'https://www.google.com/maps?q=Yeniçağ,+Ragıp+Tüzün+Cd.+Alemdar+İş+Merkezi+No:136+D:173,+06000+Yenimahalle/Ankara';
 
   return (
     <div className="min-h-screen bg-gray-950">
