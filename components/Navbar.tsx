@@ -169,7 +169,7 @@ export default function Navbar() {
             {/* Logo - Left */}
             <Link 
               href={`/${locale}`} 
-              className="flex items-center gap-3 flex-shrink-0"
+              className="flex items-center gap-2 flex-shrink-0 group"
             >
               <div className="relative flex items-center justify-center h-[50px] w-[50px] bg-white rounded-md p-1">
                 <Image
@@ -182,6 +182,9 @@ export default function Navbar() {
                   style={{ objectPosition: 'center center' }}
                 />
               </div>
+              <span className="text-white font-bold text-xl tracking-wide group-hover:text-blue-400 transition-colors duration-200">
+                ccproje
+              </span>
             </Link>
 
             {/* Desktop Menu - Center */}
