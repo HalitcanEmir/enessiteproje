@@ -39,8 +39,8 @@ const referenceLogos: ReferenceLogo[] = [
   {
     id: '5',
     name: 'Sağlık Bakanlığı',
-    logo: '/images/saglık.png',
-    alt: 'Sağlık Bakanlığı Logo',
+    logo: '/images/Ekran Resmi 2026-01-13 17.41.22.png',
+    alt: 'T.C. Sağlık Bakanlığı Logo',
   },
   {
     id: '6',
