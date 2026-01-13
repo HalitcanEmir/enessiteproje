@@ -98,31 +98,59 @@ export default function ProjectsPage() {
 
       {/* Filters Section - Becomes Fixed on Scroll */}
       <div 
-        className={`${isFilterFixed ? 'fixed' : 'relative'} top-[84px] left-0 right-0 z-40 bg-white border-b border-gray-100 shadow-sm w-full transition-all duration-200`}
+        className={`${isFilterFixed ? 'fixed' : 'relative'} top-[84px] left-0 right-0 z-40 transition-all duration-300 ${
+          isFilterFixed 
+            ? 'bg-white/95 backdrop-blur-lg shadow-lg border-b border-gray-200/80' 
+            : 'bg-gradient-to-b from-gray-50/80 to-white border-b border-gray-100'
+        } w-full`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center overflow-x-auto scrollbar-hide">
-            <div className="flex items-center gap-1 md:gap-2 py-4">
+            <div className="inline-flex items-center gap-2 md:gap-3 py-3 px-2 rounded-xl bg-white/50">
               {filters.map((filter) => (
                 <button
                   key={filter}
                   onClick={() => setActiveFilter(filter)}
-                  className={`px-4 md:px-6 py-2 text-sm md:text-base font-medium transition-all duration-200 whitespace-nowrap ${
+                  className={`relative px-4 md:px-5 py-2 md:py-2.5 text-xs md:text-sm font-semibold rounded-lg transition-all duration-300 whitespace-nowrap overflow-hidden ${
                     activeFilter === filter
-                      ? 'text-[#3b82f6] border-b-2 border-[#3b82f6]'
-                      : 'text-gray-600 hover:text-gray-900 border-b-2 border-transparent'
+                      ? 'text-white shadow-lg shadow-blue-500/30'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100/80'
                   }`}
                 >
-                  {t(`filters.${filter}`)}
+                  {/* Active Background with Gradient */}
+                  {activeFilter === filter && (
+                    <motion.div
+                      layoutId="activeFilter"
+                      className="absolute inset-0 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 rounded-lg"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                    />
+                  )}
+                  
+                  {/* Text */}
+                  <span className="relative z-10 tracking-wide">
+                    {t(`filters.${filter}`)}
+                  </span>
+                  
+                  {/* Active Indicator Dot */}
+                  {activeFilter === filter && (
+                    <motion.span
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      className="absolute -top-1 -right-1 w-2 h-2 bg-blue-400 rounded-full shadow-lg shadow-blue-400/50"
+                    />
+                  )}
                 </button>
               ))}
             </div>
           </div>
         </div>
+        
+        {/* Bottom accent line */}
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent" />
       </div>
 
       {/* Spacer to prevent content jump when filter becomes fixed */}
-      {isFilterFixed && <div className="h-[68px]" />}
+      {isFilterFixed && <div className="h-[72px]" />}
 
       {/* Projects Grid Section */}
       <section className="py-12 md:py-16 bg-white">
