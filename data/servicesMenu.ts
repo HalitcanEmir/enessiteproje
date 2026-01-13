@@ -13,7 +13,7 @@ export const servicesMenu: ServiceItem[] = [
       tr: 'Mühendislik Hizmetleri',
       en: 'Engineering Services',
     },
-    href: '/services#engineering',
+    href: '/services/engineering',
     icon: '⚙️',
   },
   {
@@ -21,7 +21,7 @@ export const servicesMenu: ServiceItem[] = [
       tr: 'Müşavirlik Hizmetleri',
       en: 'Consultancy Services',
     },
-    href: '/services#consultancy',
+    href: '/services/consultancy',
     icon: '✓',
   },
   {
@@ -29,7 +29,7 @@ export const servicesMenu: ServiceItem[] = [
       tr: 'Danışmanlık Hizmetleri',
       en: 'Advisory Services',
     },
-    href: '/services#advisory',
+    href: '/services/advisory',
     icon: '📚',
   },
 ];
