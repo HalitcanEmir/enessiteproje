@@ -10,51 +10,26 @@ export interface ServiceItem {
 export const servicesMenu: ServiceItem[] = [
   {
     title: {
-      tr: 'Elektrik Taahhüt',
-      en: 'Electrical Contracting',
+      tr: 'Mühendislik Hizmetleri',
+      en: 'Engineering Services',
     },
-    href: '/services/electrical-contracting',
-    icon: '⚡',
+    href: '/services#engineering',
+    icon: '⚙️',
   },
   {
     title: {
-      tr: 'Elektronik Sistemler',
-      en: 'Electronic Systems',
+      tr: 'Müşavirlik Hizmetleri',
+      en: 'Consultancy Services',
     },
-    href: '/services/electronic-systems',
-    icon: '🔌',
+    href: '/services#consultancy',
+    icon: '✓',
   },
   {
     title: {
-      tr: 'Akıllı Bina Sistemleri',
-      en: 'Smart Building Systems',
+      tr: 'Danışmanlık Hizmetleri',
+      en: 'Advisory Services',
     },
-    href: '/services/smart-building',
-    icon: '🏢',
-  },
-  {
-    title: {
-      tr: 'Zayıf Akım Sistemleri',
-      en: 'Weak Current Systems',
-    },
-    href: '/services/weak-current',
-    icon: '📡',
-  },
-  {
-    title: {
-      tr: 'Bakım ve Onarım',
-      en: 'Maintenance & Repair',
-    },
-    href: '/services/maintenance',
-    icon: '🔧',
-  },
-  {
-    title: {
-      tr: 'Proje Yönetimi',
-      en: 'Project Management',
-    },
-    href: '/services/project-management',
-    icon: '📋',
+    href: '/services#advisory',
+    icon: '📚',
   },
 ];
-
