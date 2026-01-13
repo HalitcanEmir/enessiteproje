@@ -14,7 +14,6 @@ export default function ProjectsPage() {
   const locale = useLocale();
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
   const [projects, setProjects] = useState<ProjectCard[]>(projectsData);
-  const [isFilterFixed, setIsFilterFixed] = useState(false);
 
   // Load projects from localStorage (admin changes) or use default data
   useEffect(() => {
@@ -24,30 +23,6 @@ export default function ProjectsPage() {
         setProjects(JSON.parse(savedProjects));
       }
     }
-  }, []);
-
-  // Make filter bar fixed when scrolling past hero section
-  useEffect(() => {
-    const handleScroll = () => {
-      // Get the actual hero section height from DOM
-      const heroSection = document.querySelector('section');
-      if (!heroSection) return;
-      
-      const heroBottom = heroSection.getBoundingClientRect().bottom;
-      const navbarHeight = 84;
-      
-      // Fix filter bar when hero section scrolls past navbar
-      setIsFilterFixed(heroBottom <= navbarHeight);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll, { passive: true });
-    handleScroll(); // Check initial position
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
-    };
   }, []);
 
   // Filter projects based on active filter
@@ -96,47 +71,29 @@ export default function ProjectsPage() {
       {/* Sentinel for Intersection Observer - detects when hero is scrolled past */}
       <div id="navbar-sentinel" className="absolute left-0 w-full h-1 pointer-events-none" style={{ top: '50vh' }} />
 
-      {/* Filters Section - Becomes Fixed on Scroll */}
-      <div 
-        className={`${isFilterFixed ? 'fixed' : 'relative'} top-[84px] left-0 right-0 z-40 transition-all duration-300 ${
-          isFilterFixed 
-            ? 'bg-white/95 backdrop-blur-lg shadow-lg border-b border-gray-200/80' 
-            : 'bg-gradient-to-b from-gray-50/80 to-white border-b border-gray-100'
-        } w-full`}
-      >
+      {/* Filters Section - Always Fixed Below Navbar */}
+      <div className="fixed top-[84px] left-0 right-0 z-40 bg-white/98 backdrop-blur-sm border-b border-gray-200/60 shadow-sm w-full">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center overflow-x-auto scrollbar-hide">
-            <div className="inline-flex items-center gap-2 md:gap-3 py-3 px-2 rounded-xl bg-white/50">
+            <div className="flex items-center gap-2 md:gap-3 py-3.5">
               {filters.map((filter) => (
                 <button
                   key={filter}
                   onClick={() => setActiveFilter(filter)}
-                  className={`relative px-4 md:px-5 py-2 md:py-2.5 text-xs md:text-sm font-semibold rounded-lg transition-all duration-300 whitespace-nowrap overflow-hidden ${
+                  className={`px-5 md:px-6 py-2.5 text-sm md:text-base font-medium transition-all duration-200 whitespace-nowrap relative ${
                     activeFilter === filter
-                      ? 'text-white shadow-lg shadow-blue-500/30'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100/80'
+                      ? 'text-blue-600'
+                      : 'text-gray-600 hover:text-gray-900'
                   }`}
                 >
-                  {/* Active Background with Gradient */}
+                  {t(`filters.${filter}`)}
+                  
+                  {/* Active underline indicator */}
                   {activeFilter === filter && (
                     <motion.div
-                      layoutId="activeFilter"
-                      className="absolute inset-0 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 rounded-lg"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                    />
-                  )}
-                  
-                  {/* Text */}
-                  <span className="relative z-10 tracking-wide">
-                    {t(`filters.${filter}`)}
-                  </span>
-                  
-                  {/* Active Indicator Dot */}
-                  {activeFilter === filter && (
-                    <motion.span
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      className="absolute -top-1 -right-1 w-2 h-2 bg-blue-400 rounded-full shadow-lg shadow-blue-400/50"
+                      layoutId="activeFilterUnderline"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-500"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
                     />
                   )}
                 </button>
@@ -144,13 +101,10 @@ export default function ProjectsPage() {
             </div>
           </div>
         </div>
-        
-        {/* Bottom accent line */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent" />
       </div>
 
-      {/* Spacer to prevent content jump when filter becomes fixed */}
-      {isFilterFixed && <div className="h-[72px]" />}
+      {/* Spacer for fixed filter bar */}
+      <div className="h-[60px]" />
 
       {/* Projects Grid Section */}
       <section className="py-12 md:py-16 bg-white">
