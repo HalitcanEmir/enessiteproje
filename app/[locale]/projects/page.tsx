@@ -43,8 +43,8 @@ export default function ProjectsPage() {
 
   return (
     <div className="relative">
-      {/* Hero Section */}
-      <section className="relative w-full h-[50vh] min-h-[400px] max-h-[550px] overflow-hidden bg-white">
+      {/* Hero Section with Integrated Filter Bar */}
+      <section className="relative w-full h-[50vh] min-h-[400px] max-h-[550px] overflow-visible bg-white">
         <div className="absolute inset-0">
           <Image
             src="/images/projects/project-1.jpg"
@@ -53,58 +53,57 @@ export default function ProjectsPage() {
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/45 to-black/55" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/45 to-black/60" />
         </div>
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 tracking-tight">
-              {t('title')}
-            </h1>
-            <div className="w-20 h-1 bg-blue-500 mx-auto mb-5" />
-            <p className="text-base md:text-lg text-gray-100 leading-relaxed max-w-3xl mx-auto">
-              {t('subtitle')}
-            </p>
+        
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col">
+          {/* Hero Content */}
+          <div className="flex-1 flex items-center justify-center">
+            <div className="max-w-4xl mx-auto text-center">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 tracking-tight">
+                {t('title')}
+              </h1>
+              <div className="w-20 h-1 bg-blue-500 mx-auto mb-5" />
+              <p className="text-base md:text-lg text-gray-100 leading-relaxed max-w-3xl mx-auto">
+                {t('subtitle')}
+              </p>
+            </div>
+          </div>
+          
+          {/* Filters Section - At Bottom of Hero */}
+          <div className="pb-6">
+            <div className="flex items-center justify-center overflow-x-auto scrollbar-hide">
+              <div className="inline-flex items-center gap-2 md:gap-3 px-6 py-3 rounded-xl bg-white/95 backdrop-blur-md shadow-lg border border-white/20">
+                {filters.map((filter) => (
+                  <button
+                    key={filter}
+                    onClick={() => setActiveFilter(filter)}
+                    className={`px-4 md:px-5 py-2 text-sm md:text-base font-medium transition-all duration-200 whitespace-nowrap relative ${
+                      activeFilter === filter
+                        ? 'text-blue-600'
+                        : 'text-gray-700 hover:text-gray-900'
+                    }`}
+                  >
+                    {t(`filters.${filter}`)}
+                    
+                    {/* Active underline indicator */}
+                    {activeFilter === filter && (
+                      <motion.div
+                        layoutId="activeFilterUnderline"
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-500 rounded-full"
+                        transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
+                      />
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
       
       {/* Sentinel for Intersection Observer - detects when hero is scrolled past */}
       <div id="navbar-sentinel" className="absolute left-0 w-full h-1 pointer-events-none" style={{ top: '50vh' }} />
-
-      {/* Filters Section - Always Fixed Below Navbar */}
-      <div className="fixed top-[84px] left-0 right-0 z-40 bg-white/98 backdrop-blur-sm border-b border-gray-200/60 shadow-sm w-full">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center overflow-x-auto scrollbar-hide">
-            <div className="flex items-center gap-2 md:gap-3 py-3.5">
-              {filters.map((filter) => (
-                <button
-                  key={filter}
-                  onClick={() => setActiveFilter(filter)}
-                  className={`px-5 md:px-6 py-2.5 text-sm md:text-base font-medium transition-all duration-200 whitespace-nowrap relative ${
-                    activeFilter === filter
-                      ? 'text-blue-600'
-                      : 'text-gray-600 hover:text-gray-900'
-                  }`}
-                >
-                  {t(`filters.${filter}`)}
-                  
-                  {/* Active underline indicator */}
-                  {activeFilter === filter && (
-                    <motion.div
-                      layoutId="activeFilterUnderline"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-500"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
-                    />
-                  )}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Spacer for fixed filter bar */}
-      <div className="h-[60px]" />
 
       {/* Projects Grid Section */}
       <section className="py-12 md:py-16 bg-white">
