@@ -149,12 +149,12 @@ export default function Navbar() {
           transition: 'transform 0.3s ease-in-out, background-color 0.5s ease, box-shadow 0.5s ease',
         }}
       >
-        {/* Background - semi-transparent gradient when on hero, solid when scrolled */}
+        {/* Background - transparent when on hero, solid when scrolled */}
         <div
           className={`absolute inset-0 transition-all duration-500 ${
             isScrolled
               ? 'bg-[#0a1929]'
-              : 'bg-gradient-to-b from-black/20 via-black/15 to-transparent backdrop-blur-sm'
+              : 'bg-transparent'
           }`}
         />
 
