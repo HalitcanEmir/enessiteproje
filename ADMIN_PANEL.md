@@ -4,7 +4,9 @@
 
 Admin paneline erişmek için:
 - **URL:** `http://localhost:3000/tr/admin`
-- **Şifre:** `admin123`
+- **Şifre:** `14616161`
+
+> **NOT:** Production için URL: `https://yourdomain.com/tr/admin`
 
 ## 📋 Özellikler
 
@@ -79,12 +81,47 @@ Admin paneline erişmek için:
 
 ## 💾 Veri Saklama
 
-**Mevcut Sistem:** LocalStorage
-- Tüm projeler tarayıcının localStorage'ında saklanır
-- Değişiklikler anında yansır
-- Tarayıcı verisi silinirse projeler kaybolur
+### ⚠️ ÖNEMLİ: LocalStorage Kısıtlamaları
 
-**Not:** Gerçek üretim ortamı için bir veritabanı entegrasyonu önerilir (MongoDB, PostgreSQL, vb.)
+**Mevcut Sistem:** LocalStorage (Sadece Tarayıcı Bazlı)
+
+**Kısıtlamalar:**
+- ❌ **Veriler sadece o tarayıcıda saklanır**
+- ❌ **Başka cihazdan erişilemez**
+- ❌ **Başka tarayıcıdan erişilemez**
+- ❌ **Tarayıcı verisi silinirse kaybolur**
+- ❌ **Birden fazla kullanıcı aynı verileri göremez**
+
+**Nasıl Çalışır:**
+```
+Bilgisayar A (Chrome) → LocalStorage → Sadece bu tarayıcıda
+Bilgisayar B (Safari) → LocalStorage → Farklı veriler
+Telefon (Chrome)      → LocalStorage → Farklı veriler
+```
+
+**Örnek Senaryo:**
+1. Bilgisayarınızdan admin paneline giriş yapıyorsunuz
+2. Yeni bir proje ekliyorsunuz
+3. ✅ Kendi tarayıcınızda görünüyor
+4. ❌ Telefonunuzdan bakınca görünmüyor
+5. ❌ Başka bir bilgisayardan bakınca görünmüyor
+
+### ✅ Çözüm: Gerçek Veritabanı Kullanımı
+
+**Önerilen Sistemler:**
+1. **Supabase** (Kolay, ücretsiz başlangıç)
+2. **MongoDB Atlas** (Ücretsiz tier var)
+3. **PostgreSQL + Vercel** (Vercel Postgres)
+4. **Firebase** (Google)
+
+**Veritabanı ile:**
+- ✅ Tüm cihazlardan erişilebilir
+- ✅ Veriler merkezi sunucuda
+- ✅ Gerçek zamanlı senkronizasyon
+- ✅ Yedekleme ve güvenlik
+- ✅ Birden fazla kullanıcı
+
+**Not:** Şu anki sistem sadece **demo/test amaçlı**dır. Gerçek kullanım için veritabanı entegrasyonu **zorunludur**.
 
 ## 📁 Dosya Yapısı
 

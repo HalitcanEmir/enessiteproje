@@ -19,7 +19,7 @@ export default function AdminLoginPage() {
     e.preventDefault();
     
     // Simple password check (in production, use proper authentication)
-    if (password === 'admin123') {
+    if (password === '14616161') {
       localStorage.setItem('adminAuth', 'true');
       router.push('/tr/admin/projects');
     } else {
@@ -65,7 +65,7 @@ export default function AdminLoginPage() {
         </form>
 
         <div className="mt-6 text-center text-sm text-gray-600">
-          <p>Demo Şifre: <code className="bg-gray-100 px-2 py-1 rounded">admin123</code></p>
+          <p className="text-xs text-gray-500">Admin Panel - Yetkili Giriş</p>
         </div>
       </div>
     </div>
